@@ -1,0 +1,122 @@
+FORMAT: 1A
+HOST: http://52.27.31.124/project/
+
+# Weekend-Planner
+
+Weekend Planner is an API made for Practeon for making weekend trip with low budget by adding more people in the trip.
+
+## All Trip [/dashboard]
+This is page where alll the trips happeing in the coming dates will be diplayed.
+### List all the Trips [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "trip_id": "10",
+                "when": "25/09/2016",
+                "where": "Nandi Hills",
+                "type": "Hill station",
+                "number_days": "3",
+                "space_left": "3"
+            }
+            {
+                "trip_id": "15",
+                "when": "26/09/2016",
+                "where": "Thanjavur",
+                "type": "Temple",
+                "number_days": "1",
+                "space_left": "5"
+            }
+        ]
+
+### Signup for Trip [POST]
+
++ Request (application/json)
+
+        {
+            "trip_id": "20",
+            "user": "xyz@gmail.com"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/20
+
+    + Body
+
+            {
+                "message": "Signed Up for the Trip"
+            }
+## Post/Modify/Delete trips [/post]
+Post a new trip.
+Modify already posted trip.
+Delete already posted trip.
+### Post a Trip [POST]
+
++ Request (application/json)
+
+        {
+            "user": "xyz@gmail.com",
+            "when": "24/08/2016",
+            "where": "Nandi Hills",
+            "people_going":"4",
+            "extra_space": "3",
+            "average_cost": "900",
+            "number_days": "2"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip posted succesfully"
+            }
+
+### Change the Trip details[PUT]
++ Request (application/json)
+
+        {
+            "trip_id": "21",
+            "user": "xyz@gmail.com",
+            "when": "28/08/2016",
+            "where": "Nandi Hills",
+            "people_going":"4",
+            "extra_space": "3",
+            "average_cost": "900",
+            "number_days": "2"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip details successfully changed"
+            }
+
+### Delete the Trip[DELETE]
++ Request (application/json)
+
+        {
+            "trip_id": "21"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip deleted Successfully"
+            }
