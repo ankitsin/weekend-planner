@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class TripServiceImpl implements TripService {
   public CrudRepository<TripEntity, Integer> getRepository() {
     return repository;
   }
+
   @Autowired
   private TripDao TripDao;
   @Autowired
@@ -33,8 +35,11 @@ public class TripServiceImpl implements TripService {
   @Autowired
   private DestinationDao DestinationDao;
 
-  public Iterable<Trip> fetchAll() {
-    Iterable<TripEntity> entity = TripDao.findByIsDeleted((byte) 0);
+  public Iterable<Trip> fetchAll(Pageable pageable) {
+    // Iterable<TripEntity>entity= TripDao.findByIsDeleted( (byte)0,pageable);
+//    Iterable<TripEntity> entity = TripDao.findAll(pageable);
+    TripFilter filter=new TripFilter();
+    Iterable<TripEntity> entity = TripDao.findAll(filter.toPredicate(), pageable);
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -53,7 +58,7 @@ public class TripServiceImpl implements TripService {
   @Override
   public Iterable<Trip> fetchUserData(int id) {
     System.out.println(id);
-    Iterable<TripEntity> entity = TripDao.findByUserUserIdAndIsDeleted(id, (byte)0);
+    Iterable<TripEntity> entity = TripDao.findByUserUserIdAndIsDeleted(id, (byte) 0);
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -76,6 +81,8 @@ public class TripServiceImpl implements TripService {
     TripEntity entity = d.post();
     Date date = new Date();
     UserEntity user = UserDao.findOne(d.PostedUserId());
+    System.out.println(d.PostedUserId());
+//    System.out.println(user.getName());
     entity.setUser(user);
     DestinationEntity destination = DestinationDao.findOne(d.PostedDestinationId());
     entity.setDestination(destination);
@@ -113,12 +120,12 @@ public class TripServiceImpl implements TripService {
     entity.setModifiedAt(date);
     entity.setIsDeleted((byte) 1);
     entity = TripDao.save(entity);
-//    TripDao.delete(TripId);
+    // TripDao.delete(TripId);
   }
 
-  public Iterable<Trip> fecthOnFilter(TripFilter filter) {   
-    Iterable<TripEntity> entity = TripDao.findAll(filter.toPredicate());
-//    Iterable<TripEntity> entity = TripDao.findAll();
+  public Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pageable) {
+    Iterable<TripEntity> entity = TripDao.findAll(filter.toPredicate(), pageable);
+    // Iterable<TripEntity> entity = TripDao.findAll();
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -132,6 +139,21 @@ public class TripServiceImpl implements TripService {
       }
     }
     return trip;
+  }
+
+  @Override
+  public Trip fetchOne(int id) {
+    // TODO Auto-generated method stub
+    TripEntity entity = TripDao.findOne(id);
+    Trip dto;
+    try {
+      dto = Trip.class.newInstance();
+      dto.fetchTrip(entity);
+    } catch (InstantiationException | IllegalAccessException e) {
+      System.out.printf("Exception while DAO get for ID :" + e);
+      return null;
+    }
+    return dto;
   }
 
 

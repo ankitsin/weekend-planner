@@ -5,6 +5,8 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +28,9 @@ public class TripController {
   private TripService service;
 
   @RequestMapping(value = "all",method = RequestMethod.GET)
-  public Iterable<Trip> get() {
+  public Iterable<Trip> get(Pageable pageable) {
     // System.out.println(id);
-    Iterable<Trip> dto = service.fetchAll();
+    Iterable<Trip> dto = service.fetchAll(updatePageable(pageable, 50));
     return dto;
     // Iterable<UserEntity> temp = dao.findByMobile(id);
     // return temp;
@@ -36,6 +38,16 @@ public class TripController {
     // return dao.findOne("ankitsin37@gmail.com");
   }
 
+  @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+  public Trip get2(@PathVariable("id") int id) {
+    // System.out.println(id);
+    Trip dto = service.fetchOne(id);
+    return dto;
+    // Iterable<UserEntity> temp = dao.findByMobile(id);
+    // return temp;
+    // System.out.println("came -here");
+    // return dao.findOne("ankitsin37@gmail.com");
+  }
   
   
   @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
@@ -65,14 +77,15 @@ public class TripController {
 //  }
 
    @RequestMapping(value = "/filter", method = RequestMethod.GET)
-   public Iterable<Trip> get2(TripFilter filter) {
+   public Iterable<Trip> get2(TripFilter filter,Pageable pageable) {
    System.out.println(filter);
-   Iterable<Trip> dto = service.fecthOnFilter(filter);
+   Iterable<Trip> dto = service.fecthOnFilter(filter,pageable);
    return dto;
    }
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Trip> create(@RequestBody Trip d) {
+//    System.out.println(d.PostedUserId());
     Trip dto = service.create(d);
     ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.CREATED);
     return re;
@@ -81,16 +94,20 @@ public class TripController {
   @RequestMapping(method = RequestMethod.PUT)
   public ResponseEntity<Trip> update(@RequestBody Trip d) {
     Trip dto = service.update(d);
+    
     ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.OK);
     return re;
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {
     service.delete(id);
     ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return re;
   }
 
-
+  public static Pageable updatePageable(final Pageable source, final int size)
+  {
+      return new PageRequest(source.getPageNumber(), size, source.getSort());
+  }
 }

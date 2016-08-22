@@ -129,7 +129,7 @@ public class Trip {
   // }
 
   public void setPostedUserId(int userId) {
-    System.out.print(userId);
+    System.out.println(userId+"#################");
     this.postedUserId = userId;
   }
 
@@ -166,11 +166,12 @@ public class Trip {
 
   public TripEntity post() {
     TripEntity et = new TripEntity();
-    // System.out.println(getTripName());
-    // System.out.println(getAverageCost());
-    // System.out.println(getGoingDate());
-    // System.out.println(getGoingPeople());
-    // System.out.println(getNumOfDay());
+//    System.out.println(PostedUserId());
+//     System.out.println(getTripName());
+//     System.out.println(getAverageCost());
+//     System.out.println(getGoingDate());
+//     System.out.println(getGoingPeople());
+//     System.out.println(getNumOfDay());
     et.setTripName(getTripName());
     et.setAverageCost(getAverageCost());
     et.setGoingDate(getGoingDate());

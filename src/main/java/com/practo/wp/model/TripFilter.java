@@ -7,14 +7,14 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 public class TripFilter {
   private Integer[] spaceLeft;
   private String[] destinationName;
-  private String[] destinationType=null;
-  private Integer[] averageCost=null;
+  private String[] destinationType = null;
+  private Integer[] averageCost = null;
   private Integer[] numOfDays;
-  
+  private byte isdelete=(byte) 0;
   public Integer[] getAverageCost() {
     return averageCost;
   }
-
+  
   public void setAverageCost(String averageCost) {
     this.averageCost = convertStringArraytoInt(averageCost);
   }
@@ -53,15 +53,13 @@ public class TripFilter {
     this.spaceLeft = convertStringArraytoInt(spaceLeft);
   }
 
-  
-  
-  
+
+
   public Predicate toPredicate() {
 
     QTripEntity b1 = QTripEntity.tripEntity;
-    BooleanExpression predicate = b1.isDeleted.eq((byte)0);
-//    BooleanExpression predicate =null;
-    System.out.println(spaceLeft);
+    BooleanExpression predicate = b1.isDeleted.eq((byte) 0);
+    // BooleanExpression predicate =null;
     if (spaceLeft != null) {
       System.out.println(spaceLeft);
       predicate = predicate.and(b1.spaceLeft.in(spaceLeft));
@@ -78,20 +76,21 @@ public class TripFilter {
       System.out.println(numOfDays);
       predicate = predicate.and(b1.numOfDay.in(numOfDays));
     }
-    
+    if (averageCost != null) {
+      System.out.println(averageCost[0]+" "+ averageCost[1]);
+      predicate = predicate.and(b1.averageCost.between(averageCost[0], averageCost[1]));
+    }
     return predicate;
   }
-  
-  private Integer[] convertStringArraytoInt(String input)
-  {
-    String[] temp=input.split(",");
+
+  private Integer[] convertStringArraytoInt(String input) {
+    String[] temp = input.split(",");
     Integer[] intarray = new Integer[temp.length];
-    for(int i = 0;i < temp.length;i++)
-    {
-       intarray[i] = Integer.parseInt(temp[i]);
+    for (int i = 0; i < temp.length; i++) {
+      intarray[i] = Integer.parseInt(temp[i]);
     }
     return intarray;
   }
-  
-  
+
+
 }
