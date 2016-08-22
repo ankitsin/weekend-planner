@@ -1,59 +1,61 @@
 package com.practo.wp.model;
 
-
-
-
 import com.practo.wp.data.entity.QTripEntity;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 public class TripFilter {
-  private String spaceLeft=null;
-  private String destinationName=null;
-  private String destinationType=null;
-  private String averageCost=null;
-  public String getAverageCost() {
+  private Integer[] spaceLeft;
+  private String[] destinationName;
+  private String[] destinationType=null;
+  private Integer[] averageCost=null;
+  private Integer[] numOfDays;
+  
+  public Integer[] getAverageCost() {
     return averageCost;
   }
 
   public void setAverageCost(String averageCost) {
-    this.averageCost = averageCost;
+    this.averageCost = convertStringArraytoInt(averageCost);
   }
 
-  public String getNumOfDays() {
+  public Integer[] getNumOfDays() {
     return numOfDays;
   }
 
   public void setNumOfDays(String numOfDays) {
-    this.numOfDays = numOfDays;
+    this.numOfDays = convertStringArraytoInt(numOfDays);
   }
 
-  private String numOfDays=null;
-  public String getDestinationName() {
+
+  public String[] getDestinationName() {
     return destinationName;
   }
 
   public void setDestinationName(String destinationName) {
-    this.destinationName = destinationName;
+    this.destinationName = destinationName.split(",");
   }
 
-  public String getDestinationType() {
+  public String[] getDestinationType() {
     return destinationType;
   }
 
   public void setDestinationType(String destinationType) {
-    this.destinationType = destinationType;
+    this.destinationType = destinationType.split(",");
   }
 
 
-  public String getSpaceLeft() {
+  public Integer[] getSpaceLeft() {
     return spaceLeft;
   }
 
   public void setSpaceLeft(String spaceLeft) {
-    this.spaceLeft = spaceLeft;
+    this.spaceLeft = convertStringArraytoInt(spaceLeft);
   }
 
+  
+  
+  
   public Predicate toPredicate() {
 
     QTripEntity b1 = QTripEntity.tripEntity;
@@ -62,21 +64,34 @@ public class TripFilter {
     System.out.println(spaceLeft);
     if (spaceLeft != null) {
       System.out.println(spaceLeft);
-      predicate = predicate.and(b1.spaceLeft.eq(Integer.parseInt(spaceLeft)));
+      predicate = predicate.and(b1.spaceLeft.in(spaceLeft));
     }
     if (destinationName != null) {
       System.out.println(destinationName);
-      predicate = predicate.and(b1.destination.location.eq(destinationName));
+      predicate = predicate.and(b1.destination.location.in(destinationName));
     }
     if (destinationType != null) {
       System.out.println(destinationType);
-      predicate = predicate.and(b1.destination.type.eq(destinationType));
+      predicate = predicate.and(b1.destination.type.in(destinationType));
     }
     if (numOfDays != null) {
       System.out.println(numOfDays);
-      predicate = predicate.and(b1.numOfDay.eq(Integer.parseInt(numOfDays)));
+      predicate = predicate.and(b1.numOfDay.in(numOfDays));
     }
     
     return predicate;
   }
+  
+  private Integer[] convertStringArraytoInt(String input)
+  {
+    String[] temp=input.split(",");
+    Integer[] intarray = new Integer[temp.length];
+    for(int i = 0;i < temp.length;i++)
+    {
+       intarray[i] = Integer.parseInt(temp[i]);
+    }
+    return intarray;
+  }
+  
+  
 }

@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.practo.wp.data.dao.DestinationDao;
 import com.practo.wp.data.entity.DestinationEntity;
-import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.model.Destination;
-import com.practo.wp.model.Trip;
+
 
 
 @Service
