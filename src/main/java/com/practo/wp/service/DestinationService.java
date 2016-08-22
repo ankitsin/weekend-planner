@@ -1,11 +1,13 @@
 package com.practo.wp.service;
 
-import javax.print.attribute.standard.Destination;
 import javax.transaction.Transactional;
 
+import com.practo.wp.model.Destination;
+
 public interface DestinationService {
-  
   @Transactional
-  Destination get(Integer id);
+  Iterable<Destination> getall();
+  @Transactional
+  Destination getById(Integer id);
 
 }
