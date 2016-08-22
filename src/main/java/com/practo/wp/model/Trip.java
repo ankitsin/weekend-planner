@@ -21,7 +21,7 @@ public class Trip {
   private DestinationEntity destination;
   private int postedUserId;
   private int posteDestinationId;
-
+  private byte isDeleted;
   public int getTripId() {
     return this.tripId;
   }
@@ -112,6 +112,14 @@ public class Trip {
     return this.destination.getLocation();
   }
 
+  public byte getIsDeleted() {
+    return this.isDeleted;
+  }
+
+  public void setIsDeleted(byte isDeleted) {
+    this.isDeleted = isDeleted;
+  }
+
   public void setDestination(DestinationEntity destination) {
     this.destination = destination;
   }
@@ -147,22 +155,22 @@ public class Trip {
       setSpaceLeft(e.getSpaceLeft());
       setUser(e.getUser());
       setDestination(e.getDestination());
-//      System.out.println(e.getTripName());
-//      System.out.println(e.getAverageCost());
-//      System.out.println(e.getGoingDate());
-//      System.out.println(e.getGoingPeople());
-//      System.out.println(e.getUser().getName());
-     
+      // System.out.println(e.getTripName());
+      // System.out.println(e.getAverageCost());
+      // System.out.println(e.getGoingDate());
+      // System.out.println(e.getGoingPeople());
+      // System.out.println(e.getUser().getName());
+
     }
   }
 
   public TripEntity post() {
     TripEntity et = new TripEntity();
-//    System.out.println(getTripName());
-//    System.out.println(getAverageCost());
-//    System.out.println(getGoingDate());
-//    System.out.println(getGoingPeople());
-//    System.out.println(getNumOfDay());
+    // System.out.println(getTripName());
+    // System.out.println(getAverageCost());
+    // System.out.println(getGoingDate());
+    // System.out.println(getGoingPeople());
+    // System.out.println(getNumOfDay());
     et.setTripName(getTripName());
     et.setAverageCost(getAverageCost());
     et.setGoingDate(getGoingDate());

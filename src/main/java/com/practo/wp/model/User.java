@@ -42,16 +42,7 @@ public class User {
     this.mobileno = mobileno;
   }
 
-  public UserEntity fetchData() {
-    UserEntity et = new UserEntity();
-    et.setMobile(getMobile());
-    et.setName(getName());
-    if (getEmailId() != null)
-      et.setEmailId(getEmailId());
-    return et;
-  }
-
-  public void setEntity(UserEntity e) {
+  public void setData(UserEntity e) {
     if (e != null) {
       setUserId(e.getUserId());
       setName(e.getName());

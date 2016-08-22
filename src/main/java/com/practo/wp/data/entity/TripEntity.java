@@ -34,6 +34,9 @@ public class TripEntity implements Serializable {
 	@Column(name="going_people")
 	private int goingPeople;
 
+	@Column(name="is_deleted")
+	private byte isDeleted;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modified_at")
 	private Date modifiedAt;
@@ -98,6 +101,14 @@ public class TripEntity implements Serializable {
 
 	public void setGoingPeople(int goingPeople) {
 		this.goingPeople = goingPeople;
+	}
+
+	public byte getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(byte isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public Date getModifiedAt() {

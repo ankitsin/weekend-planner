@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practo.wp.model.Trip;
+import com.practo.wp.model.TripFilter;
 import com.practo.wp.service.TripService;
 
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/trip")
 public class TripController {
@@ -34,6 +36,8 @@ public class TripController {
     // return dao.findOne("ankitsin37@gmail.com");
   }
 
+  
+  
   @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
   public Iterable<Trip> get1(@PathVariable("id") int id) {
     System.out.println(id);
@@ -60,11 +64,10 @@ public class TripController {
 //    return null;
 //  }
 
-   @RequestMapping(value = "/filter/{date}", method = RequestMethod.GET)
-   public Iterable<Trip> get2(@PathVariable("date") String date) {
-   System.out.println(date);
-   System.out.println(date);
-   Iterable<Trip> dto = service.fecthOnFilter();
+   @RequestMapping(value = "/filter", method = RequestMethod.GET)
+   public Iterable<Trip> get2(TripFilter filter) {
+   System.out.println(filter);
+   Iterable<Trip> dto = service.fecthOnFilter(filter);
    return dto;
    }
 
