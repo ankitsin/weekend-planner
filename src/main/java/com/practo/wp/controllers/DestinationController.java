@@ -1,13 +1,13 @@
 package com.practo.wp.controllers;
 
+import com.practo.wp.model.Destination;
+import com.practo.wp.service.DestinationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.wp.model.Destination;
-import com.practo.wp.service.DestinationService;
 
 
 @RestController
@@ -15,27 +15,24 @@ import com.practo.wp.service.DestinationService;
 public class DestinationController {
 
   @Autowired
-  private DestinationService DestinationService;
+  private DestinationService destinationService;
 
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public Iterable<Destination> get() {
-    // System.out.println(id);
-    Iterable<Destination> dto = DestinationService.getall();
+    Iterable<Destination> dto = destinationService.getall();
     return dto;
-    // Iterable<UserEntity> temp = dao.findByMobile(id);
-    // return temp;
-    // System.out.println("came -here");
-    // return dao.findOne("ankitsin37@gmail.com");
   }
 
+  /**
+   * get the destination details with the given id.
+   * 
+   * @param id (id) id passed to get details
+   * @return (json object)
+   */
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public Destination get(@PathVariable("id") Integer id) {
     System.out.println(id);
-    Destination dto = DestinationService.getById(id);
+    Destination dto = destinationService.getById(id);
     return dto;
-    // Iterable<UserEntity> temp = dao.findByMobile(id);
-    // return temp;
-    // System.out.println("came -here");
-    // return dao.findOne("ankitsin37@gmail.com");
   }
 }

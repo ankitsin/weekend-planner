@@ -1,15 +1,5 @@
 package com.practo.wp.service;
 
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
-
 import com.practo.wp.data.dao.DestinationDao;
 import com.practo.wp.data.dao.TripDao;
 import com.practo.wp.data.dao.UserDao;
@@ -19,27 +9,34 @@ import com.practo.wp.data.entity.UserEntity;
 import com.practo.wp.model.Trip;
 import com.practo.wp.model.TripFilter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Service
+@Transactional
 public class TripServiceImpl implements TripService {
-  @Autowired
-  private CrudRepository<TripEntity, Integer> repository;
-
-  public CrudRepository<TripEntity, Integer> getRepository() {
-    return repository;
-  }
 
   @Autowired
-  private TripDao TripDao;
+  private DestinationDao destinationDao;
   @Autowired
-  private UserDao UserDao;
+  private TripDao tripDao;
   @Autowired
-  private DestinationDao DestinationDao;
+  private UserDao userDao;
 
+  /**
+   * .
+   * 
+   * @param pageable ()
+   * @return ()
+   */
   public Iterable<Trip> fetchAll(Pageable pageable) {
-    // Iterable<TripEntity>entity= TripDao.findByIsDeleted( (byte)0,pageable);
-//    Iterable<TripEntity> entity = TripDao.findAll(pageable);
-    TripFilter filter=new TripFilter();
-    Iterable<TripEntity> entity = TripDao.findAll(filter.toPredicate(), pageable);
+    Iterable<TripEntity> entity = tripDao.getAllTrip();
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -47,85 +44,90 @@ public class TripServiceImpl implements TripService {
         Trip dto = Trip.class.newInstance();
         dto.fetchTrip(temp);
         trip.add(dto);
-      } catch (InstantiationException | IllegalAccessException e) {
-        System.out.printf("Exception while fetching all the trips:" + e);
+      } catch (InstantiationException | IllegalAccessException exc) {
+        System.out.printf("Exception while fetching all the trips:" + exc);
         return null;
       }
     }
     return trip;
-  }
-
-  @Override
-  public Iterable<Trip> fetchUserData(int id) {
-    System.out.println(id);
-    Iterable<TripEntity> entity = TripDao.findByUserUserIdAndIsDeleted(id, (byte) 0);
-    List<Trip> trip = new ArrayList<Trip>();
-    for (TripEntity temp : entity) {
-      System.out.println(temp);
-      try {
-        Trip dto = Trip.class.newInstance();
-        dto.fetchTrip(temp);
-        trip.add(dto);
-      } catch (InstantiationException | IllegalAccessException e) {
-        System.out.printf("Exception while DAO get for ID :" + e);
-        return null;
-      }
-    }
-    return trip;
-  }
-
-
-
-  @Override
-  public Trip create(Trip d) {
-    TripEntity entity = d.post();
-    Date date = new Date();
-    UserEntity user = UserDao.findOne(d.PostedUserId());
-    System.out.println(d.PostedUserId());
-//    System.out.println(user.getName());
-    entity.setUser(user);
-    DestinationEntity destination = DestinationDao.findOne(d.PostedDestinationId());
-    entity.setDestination(destination);
-    entity.setCreatedAt(date);
-    entity.setModifiedAt(date);
-    entity = TripDao.save(entity);
-    d.fetchTrip(entity);
-    return d;
-  }
-
-  @Override
-  public Trip update(Trip d) {
-    TripEntity entity = d.post();
-    Date date = new Date();
-    UserEntity user = UserDao.findOne(d.PostedUserId());
-    entity.setUser(user);
-    DestinationEntity destination = DestinationDao.findOne(d.PostedDestinationId());
-    entity.setDestination(destination);
-    TripEntity trip = TripDao.findOne(d.getTripId());
-    entity.setCreatedAt(trip.getCreatedAt());
-    entity.setModifiedAt(date);
-    entity = TripDao.save(entity);
-    d.fetchTrip(entity);
-    return d;
-    // TripEntity entity = d.getEntity();
-    // entity = TripDao.save(entity);
-    // d.mergeEntity(entity);
     // return null;
   }
 
   @Override
-  public void delete(int TripId) {
-    TripEntity entity = TripDao.findOne(TripId);
+  public Iterable<Trip> fetchUserData(int id) {
+    // Iterable<TripEntity> entity = tripDao.findByUserUserIdAndIsDeleted(id, (byte) 0);
+    // List<Trip> trip = new ArrayList<Trip>();
+    // for (TripEntity temp : entity) {
+    // System.out.println(temp);
+    // try {
+    // Trip dto = Trip.class.newInstance();
+    // dto.fetchTrip(temp);
+    // trip.add(dto);
+    // } catch (InstantiationException | IllegalAccessException exc) {
+    // System.out.printf("Exception while DAO get for ID :" + exc);
+    // return null;
+    // }
+    // }
+    // return trip;
+    return null;
+  }
+
+
+
+  @Override
+  public Trip create(Trip model) {
+    TripEntity entity = model.post();
+    UserEntity user = userDao.findUser(model.posteduserId());
+    entity.setUser(user);
+    DestinationEntity destination = destinationDao.findDestination(model.postedDestinationId());
+    entity.setDestination(destination);
+    Date date = new Date();
+    entity.setCreatedAt(date);
+    entity.setModifiedAt(date);
+    entity = tripDao.createTrip(entity);
+    model.fetchTrip(entity);
+    return model;
+  }
+
+  @Override
+  public Trip update(Trip model) {
+    TripEntity entity = model.post();
+    Date date = new Date();
+    UserEntity user = userDao.findUser(model.posteduserId());
+    entity.setUser(user);
+    DestinationEntity destination = destinationDao.findDestination(model.postedDestinationId());
+    entity.setDestination(destination);
+    TripEntity trip = tripDao.findTrip(model.getTripId());
+    entity.setCreatedAt(trip.getCreatedAt());
+    entity.setModifiedAt(date);
+    entity = tripDao.updateTrip(entity);
+    model.fetchTrip(entity);
+    return model;
+    // TripEntity entity = model.getEntity();
+    // entity = tripDao.save(entity);
+    // model.mergeEntity(entity);
+    // return null;
+  }
+
+  @Override
+  public void delete(int tripId) {
+    TripEntity entity = tripDao.findTrip(tripId);
     Date date = new Date();
     entity.setModifiedAt(date);
     entity.setIsDeleted((byte) 1);
-    entity = TripDao.save(entity);
-    // TripDao.delete(TripId);
+    entity = tripDao.updateTrip(entity);
+    // tripDao.delete(TripId);
   }
 
+  /**
+   * .
+   * 
+   * @param filter ()
+   * @return ()
+   */
   public Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pageable) {
-    Iterable<TripEntity> entity = TripDao.findAll(filter.toPredicate(), pageable);
-    // Iterable<TripEntity> entity = TripDao.findAll();
+    // Iterable<TripEntity> entity = tripDao.findAll(filter.toPredicate(), pageable);
+    Iterable<TripEntity> entity = tripDao.getAllTrip();
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -133,8 +135,8 @@ public class TripServiceImpl implements TripService {
         Trip dto = Trip.class.newInstance();
         dto.fetchTrip(temp);
         trip.add(dto);
-      } catch (InstantiationException | IllegalAccessException e) {
-        System.out.printf("Exception while fetching all the trips:" + e);
+      } catch (InstantiationException | IllegalAccessException exc) {
+        System.out.printf("Exception while fetching all the trips:" + exc);
         return null;
       }
     }
@@ -143,14 +145,13 @@ public class TripServiceImpl implements TripService {
 
   @Override
   public Trip fetchOne(int id) {
-    // TODO Auto-generated method stub
-    TripEntity entity = TripDao.findOne(id);
+    TripEntity entity = tripDao.findTrip(id);
     Trip dto;
     try {
       dto = Trip.class.newInstance();
       dto.fetchTrip(entity);
-    } catch (InstantiationException | IllegalAccessException e) {
-      System.out.printf("Exception while DAO get for ID :" + e);
+    } catch (InstantiationException | IllegalAccessException exc) {
+      System.out.printf("Exception while DAO get for ID :" + exc);
       return null;
     }
     return dto;

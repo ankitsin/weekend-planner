@@ -1,10 +1,16 @@
 package com.practo.wp.service;
 
-import javax.transaction.Transactional;
-
 import com.practo.wp.model.User;
 
+import javax.transaction.Transactional;
+
 public interface UserService {
-@Transactional
+  /**
+   * .
+   * 
+   * @param id ()
+   * @return ()
+   */
+  @Transactional
   User get(Integer id);
 }

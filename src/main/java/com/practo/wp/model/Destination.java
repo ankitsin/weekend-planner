@@ -10,6 +10,7 @@ public class Destination {
   private String location;
 
   private String type;
+
   public int getDestinationId() {
     return this.destinationId;
   }
@@ -42,12 +43,17 @@ public class Destination {
     this.type = type;
   }
 
-  public void setData(DestinationEntity e) {
-    if (e != null) {
-      setDestinationId(e.getDestinationId());
-      setLocation(e.getLocation());
-      setType(e.getType());
-      setDistance(e.getDistance());
+  /**
+   * .
+   * 
+   * @param entity ()
+   */
+  public void setData(DestinationEntity entity) {
+    if (entity != null) {
+      setDestinationId(entity.getDestinationId());
+      setLocation(entity.getLocation());
+      setType(entity.getType());
+      setDistance(entity.getDistance());
     }
   }
 }

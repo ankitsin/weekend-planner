@@ -1,25 +1,48 @@
 package com.practo.wp.data.dao;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.practo.wp.data.entity.TripEntity;
 
-@SuppressWarnings("unused")
-public interface TripDao extends PagingAndSortingRepository<TripEntity, Integer>,QueryDslPredicateExecutor<TripEntity> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-  
- TripEntity findByTripIdAndIsDeleted(int id, byte t);
+
+@Repository
+public class TripDao {
+
+  @Autowired
+  private HibernateTemplate template;
 
   @Transactional
-  Iterable<TripEntity> findByGoingPeopleAndSpaceLeft(int goingdate, int space);
+  public TripEntity findTrip(int tripId) {
+    return template.load(TripEntity.class, tripId);
+  }
 
   @Transactional
-  Iterable<TripEntity> findByUserUserIdAndIsDeleted(int id, byte t);
+  public Iterable<TripEntity> getAllTrip() {
+    return template.loadAll(TripEntity.class);
+  }
 
   @Transactional
-  Iterable<TripEntity> findByTripName(String name);
+  public TripEntity createTrip(TripEntity obj) {
+    return (TripEntity) template.save(obj);
+  }
+
+  @Transactional
+  public TripEntity updateTrip(TripEntity obj) {
+    template.update(obj);
+    return obj;
+  }
+  // @Transactional
+  // public TripEntity findByTripIdAndIsDeleted(int id, byte isDel);
+  //
+  // @Transactional
+  // Iterable<TripEntity> findByGoingPeopleAndSpaceLeft(int goingdate, int space);
+  //
+  // @Transactional
+  // Iterable<TripEntity> findByUserUserIdAndIsDeleted(int id, byte isDel);
+  //
+  // @Transactional
+  // Iterable<TripEntity> findByTripName(String name);
 }

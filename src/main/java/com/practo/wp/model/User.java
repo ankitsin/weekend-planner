@@ -4,7 +4,7 @@ import com.practo.wp.data.entity.UserEntity;
 
 public class User {
   private int userId;
-  private String email_id;
+  private String emailId;
   private String name;
   private String mobileno;
 
@@ -19,11 +19,11 @@ public class User {
   }
 
   public String getEmailId() {
-    return email_id;
+    return emailId;
   }
 
-  public void setEmailId(String email_id) {
-    this.email_id = email_id;
+  public void setEmailId(String emailId) {
+    this.emailId = emailId;
   }
 
   public String getName() {
@@ -42,12 +42,17 @@ public class User {
     this.mobileno = mobileno;
   }
 
-  public void setData(UserEntity e) {
-    if (e != null) {
-      setUserId(e.getUserId());
-      setName(e.getName());
-      setEmailId(e.getEmailId());
-      setMobile(e.getMobile());
+  /**
+   * .
+   * 
+   * @param e()
+   */
+  public void setData(UserEntity entity) {
+    if (entity != null) {
+      setUserId(entity.getUserId());
+      setName(entity.getName());
+      setEmailId(entity.getEmailId());
+      setMobile(entity.getMobile());
     }
   }
 }

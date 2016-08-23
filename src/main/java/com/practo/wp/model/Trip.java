@@ -1,10 +1,12 @@
 package com.practo.wp.model;
 
-import java.util.Date;
-
 import com.practo.wp.data.entity.DestinationEntity;
 import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
+
+import java.util.Date;
+
+
 
 public class Trip {
 
@@ -22,6 +24,7 @@ public class Trip {
   private int postedUserId;
   private int posteDestinationId;
   private byte isDeleted;
+
   public int getTripId() {
     return this.tripId;
   }
@@ -95,9 +98,7 @@ public class Trip {
   }
 
   public String getUserName() {
-
     return this.user.getName();
-
   }
 
   public int getUserId() {
@@ -129,11 +130,14 @@ public class Trip {
   // }
 
   public void setPostedUserId(int userId) {
-    System.out.println(userId+"#################");
+    System.out.println(userId + "#################");
     this.postedUserId = userId;
   }
 
-  public int PostedUserId() {
+  /**
+   * . @return()
+   */
+  public int posteduserId() {
     return this.postedUserId;
   }
 
@@ -141,44 +145,55 @@ public class Trip {
     this.posteDestinationId = destinationId;
   }
 
-  public int PostedDestinationId() {
+  public int postedDestinationId() {
     return this.posteDestinationId;
   }
 
-  public void fetchTrip(TripEntity e) {
-    if (e != null) {
-      setTripId(e.getTripId());
-      setTripName(e.getTripName());
-      setAverageCost(e.getAverageCost());
-      setGoingDate(e.getGoingDate());
-      setGoingPeople(e.getGoingPeople());
-      setSpaceLeft(e.getSpaceLeft());
-      setUser(e.getUser());
-      setDestination(e.getDestination());
-      // System.out.println(e.getTripName());
-      // System.out.println(e.getAverageCost());
-      // System.out.println(e.getGoingDate());
-      // System.out.println(e.getGoingPeople());
-      // System.out.println(e.getUser().getName());
+  /**
+   * .
+   * 
+   * @param entity()
+   */
+  public void fetchTrip(TripEntity entity) {
+    if (entity != null) {
+      setTripId(entity.getTripId());
+      setTripName(entity.getTripName());
+      setAverageCost(entity.getAverageCost());
+      setGoingDate(entity.getGoingDate());
+      setGoingPeople(entity.getGoingPeople());
+      setSpaceLeft(entity.getSpaceLeft());
+      setUser(entity.getUser());
+      setDestination(entity.getDestination());
+      // System.out.println(entity.getTripName());
+      // System.out.println(entity.getAverageCost());
+      // System.out.println(entity.getGoingDate());
+      // System.out.println(entity.getGoingPeople());
+      // System.out.println(entity.getUser().getName());
 
     }
   }
 
+  /**
+   * .
+   * 
+   * @return()
+   */
   public TripEntity post() {
     TripEntity et = new TripEntity();
-//    System.out.println(PostedUserId());
-//     System.out.println(getTripName());
-//     System.out.println(getAverageCost());
-//     System.out.println(getGoingDate());
-//     System.out.println(getGoingPeople());
-//     System.out.println(getNumOfDay());
+    // System.out.println(PostedUserId());
+    // System.out.println(getTripName());
+    // System.out.println(getAverageCost());
+    // System.out.println(getGoingDate());
+    // System.out.println(getGoingPeople());
+    // System.out.println(getNumOfDay());
     et.setTripName(getTripName());
     et.setAverageCost(getAverageCost());
     et.setGoingDate(getGoingDate());
     et.setGoingPeople(getGoingPeople());
     et.setNumOfDay(getNumOfDay());
-    if (new Integer(getTripId()) != null)
+    if (new Integer(getTripId()) != null) {
       et.setTripId(getTripId());
+    }
     return et;
 
   }

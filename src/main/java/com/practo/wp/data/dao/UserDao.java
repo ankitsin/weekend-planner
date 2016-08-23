@@ -1,12 +1,34 @@
 package com.practo.wp.data.dao;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.practo.wp.data.entity.UserEntity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 
-public interface UserDao extends CrudRepository<UserEntity, Integer>{
+import javax.transaction.Transactional;
+
+@Repository
+public class UserDao {
+
+  @Autowired
+  private HibernateTemplate template;
+
   
-  Iterable<UserEntity> findByMobile(String mobile);
+  @Transactional
+  public UserEntity findUser(int id) {
+    return template.load(UserEntity.class, id);
+  }
+
+  @Transactional
+  public UserEntity createUser(UserEntity obj) {
+    return (UserEntity) template.save(obj);
+  }
+
+  @Transactional
+  public UserEntity updatUser(UserEntity obj) {
+    template.update(obj);
+    return obj;
+  }
 
 }
