@@ -4,7 +4,10 @@ package com.practo.wp.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import javax.mail.MessagingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.User;
 import com.practo.wp.run.Application;
 import com.practo.wp.service.UserService;
@@ -38,7 +41,7 @@ public class UnitServiceTester {
   // }
 
   @Test
-  public void testGetUserDetailsApi() {
+  public void testGetUserDetailsApi() throws MessagingException {
 
     // User apiResponse = restTemplate.getForObject("http://localhost:8080/user/2", User.class);
     // NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(db);

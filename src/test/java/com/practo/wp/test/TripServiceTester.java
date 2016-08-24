@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.Trip;
 import com.practo.wp.run.Application;
 import com.practo.wp.service.TripService;
@@ -32,7 +33,7 @@ public class TripServiceTester {
 
 
   @Test
-  public void testCreateTripApi() throws JsonProcessingException {
+  public void testCreateTripApi() throws JsonProcessingException, ExceptionMessageThrow {
 
     Calendar cal = Calendar.getInstance();
     cal.clear(Calendar.HOUR_OF_DAY);
@@ -64,7 +65,7 @@ public class TripServiceTester {
   }
 
   @Test
-  public void testDeleteTripApi() {
+  public void testDeleteTripApi() throws ExceptionMessageThrow {
     service.delete(10);
     // assertNull(bookFromDb);
   }

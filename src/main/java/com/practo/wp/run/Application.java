@@ -1,5 +1,6 @@
 package com.practo.wp.run;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -8,6 +9,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 
 @ImportResource("classpath:hibernate.xml")
@@ -25,4 +27,9 @@ public class Application extends SpringBootServletInitializer {
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
+
+  // @RequestMapping(value = "/", method = RequestMethod.GET)
+  // public String method(HttpServletResponse httpServletResponse) {
+  // return "redirect:" + "http://http://docs.accommodationfinder.apiary.io/";
+  // }
 }

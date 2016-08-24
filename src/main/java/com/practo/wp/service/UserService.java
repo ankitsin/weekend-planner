@@ -1,7 +1,9 @@
 package com.practo.wp.service;
 
+import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.User;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 public interface UserService {
@@ -12,5 +14,5 @@ public interface UserService {
    * @return ()
    */
   @Transactional
-  User get(Integer id);
+  User get(Integer id) throws MessagingException;
 }

@@ -1,10 +1,12 @@
 package com.practo.wp.service;
 
+import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.Trip;
 import com.practo.wp.model.TripFilter;
 
 import org.springframework.data.domain.Pageable;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
 
@@ -13,7 +15,7 @@ public interface TripService {
 
   Iterable<Trip> fetchAll(Pageable pageable);
 
-  Iterable<Trip> fetchUserData(int id);
+  Trip signUpForTrip(String tripIdemailId) throws MessagingException;
 
 
   Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pagebale);
@@ -21,9 +23,9 @@ public interface TripService {
   Trip fetchOne(int id);
 
   @Transactional
-  Trip create(Trip entity);
+  Trip create(Trip entity) throws ExceptionMessageThrow;
 
-  void delete(int id);
+  String delete(int id) throws ExceptionMessageThrow;
 
-  Trip update(Trip entity);
+  Trip update(Trip entity) throws ExceptionMessageThrow;
 }

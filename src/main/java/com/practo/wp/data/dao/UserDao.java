@@ -6,6 +6,8 @@ public interface UserDao {
 
   UserEntity findUser(int id);
 
+  UserEntity findUserByEmail(String emailId);
+
   UserEntity createUser(UserEntity obj);
 
   UserEntity updatUser(UserEntity obj);

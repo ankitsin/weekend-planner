@@ -1,5 +1,6 @@
 package com.practo.wp.controllers;
 
+import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.Trip;
 import com.practo.wp.model.TripFilter;
 import com.practo.wp.service.TripService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -29,6 +31,10 @@ public class TripController {
   @Autowired
   private TripService service;
 
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  public String method(HttpServletResponse httpServletResponse) {
+    return "redirect:" + "http://http://docs.accommodationfinder.apiary.io/";
+  }
 
   /**
    * .
@@ -70,11 +76,12 @@ public class TripController {
    * @return ()
    * 
    */
-  @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
-  public Iterable<Trip> get1(@PathVariable("id") int id) {
-    System.out.println(id);
-    Iterable<Trip> dto = service.fetchUserData(id);
-    return dto;
+  @RequestMapping(value = "/signup", method = RequestMethod.POST)
+  public ResponseEntity<Trip> get1(@RequestBody String tripIdemailId) throws MessagingException {
+    System.out.println(tripIdemailId);
+    Trip dto = service.signUpForTrip(tripIdemailId);
+    ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.CREATED);
+    return re;
   }
 
   /**
@@ -84,7 +91,7 @@ public class TripController {
    * @return ()
    */
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Trip> create(@RequestBody Trip obj) {
+  public ResponseEntity<Trip> create(@RequestBody Trip obj) throws ExceptionMessageThrow {
     Trip dto = service.create(obj);
     ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.CREATED);
     return re;
@@ -97,7 +104,7 @@ public class TripController {
    * @return ()
    */
   @RequestMapping(method = RequestMethod.PUT)
-  public ResponseEntity<Trip> update(@RequestBody Trip obj) {
+  public ResponseEntity<Trip> update(@RequestBody Trip obj) throws ExceptionMessageThrow {
     Trip dto = service.update(obj);
     ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.OK);
     return re;
@@ -111,7 +118,8 @@ public class TripController {
    * @return ()
    */
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {
+  public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response)
+      throws ExceptionMessageThrow {
     service.delete(id);
     ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return re;
