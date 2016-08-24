@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
    */
   public User get(Integer id) {
     UserEntity entity = userDao.findUser(id);
+    System.out.println("#################");
     try {
       User dto = User.class.newInstance();
       dto.setData(entity);

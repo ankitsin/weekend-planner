@@ -1,41 +1,27 @@
 package com.practo.wp.data.dao;
 
 import com.practo.wp.data.entity.TripEntity;
+import com.practo.wp.model.TripFilter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Pageable;
 
 
-@Repository
-public class TripDao {
 
-  @Autowired
-  private HibernateTemplate template;
+public interface TripDao {
 
-  @Transactional
-  public TripEntity findTrip(int tripId) {
-    return template.load(TripEntity.class, tripId);
-  }
+  TripEntity findTrip(int tripId);
 
-  @Transactional
-  public Iterable<TripEntity> getAllTrip() {
-    return template.loadAll(TripEntity.class);
-  }
+  Iterable<TripEntity> getAllTrip();
 
-  @Transactional
-  public TripEntity createTrip(TripEntity obj) {
-    return (TripEntity) template.save(obj);
-  }
+  TripEntity createTrip(TripEntity obj);
 
-  @Transactional
-  public TripEntity updateTrip(TripEntity obj) {
-    template.update(obj);
-    return obj;
-  }
-  // @Transactional
-  // public TripEntity findByTripIdAndIsDeleted(int id, byte isDel);
+  TripEntity updateTrip(TripEntity obj);
+
+
+  Iterable<TripEntity> findTripAndNotDeleted();
+
+ 
+  Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable);
   //
   // @Transactional
   // Iterable<TripEntity> findByGoingPeopleAndSpaceLeft(int goingdate, int space);

@@ -1,0 +1,6 @@
+CREATE TABLE users (
+ user_id INT NOT NULL AUTO_INCREMENT,
+  email_id VARCHAR(45) NOT NULL,
+  name VARCHAR(45) NULL,
+  mobile VARCHAR(13) NULL,
+);

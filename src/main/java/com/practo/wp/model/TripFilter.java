@@ -10,8 +10,8 @@ package com.practo.wp.model;
 public class TripFilter {
   private Integer[] spaceLeft;
   private String[] destinationName;
-  private String[] destinationType = null;
-  private Integer[] averageCost = null;
+  private String[] destinationType;
+  private Integer[] averageCost;
   private Integer[] numOfDays;
   @SuppressWarnings("unused")
   private byte isdelete = (byte) 0;

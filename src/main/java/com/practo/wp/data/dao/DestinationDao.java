@@ -2,36 +2,18 @@ package com.practo.wp.data.dao;
 
 import com.practo.wp.data.entity.DestinationEntity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
+public interface DestinationDao {
 
-@Repository
-public class DestinationDao {
+  DestinationEntity findDestination(int id);
 
-  @Autowired
-  private HibernateTemplate template;
+  Iterable<DestinationEntity> getAllDestination();
 
-  @Transactional
-  public DestinationEntity findDestination(int id) {
-    return template.load(DestinationEntity.class, id);
-  }
+  DestinationEntity createDestination(DestinationEntity obj);
 
-  @Transactional
-  public Iterable<DestinationEntity> getAllDestination() {
-    return template.loadAll(DestinationEntity.class);
-  }
+  DestinationEntity updatDestination(DestinationEntity obj);
 
-  @Transactional
-  public DestinationEntity createDestination(DestinationEntity obj) {
-    return (DestinationEntity) template.save(obj);
-  }
+  Iterable<DestinationEntity> fetchIdByName(String[] name);
 
-  @Transactional
-  public DestinationEntity updatDestination(DestinationEntity obj) {
-    template.update(obj);
-    return obj;
-  }
+  Iterable<DestinationEntity> fetchIdByType(String[] type);
 }
