@@ -1,15 +1,9 @@
 package com.practo.wp.data.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
 
 /**
  * The persistent class for the user database table.
@@ -36,6 +30,10 @@ public class UserEntity implements Serializable {
   // bi-directional many-to-one association to TripEntity
   @OneToMany(mappedBy = "user")
   private List<TripEntity> trips;
+
+  // bi-directional many-to-one association to SignedupEntity
+  @OneToMany(mappedBy = "user")
+  private List<SignedupEntity> signedups;
 
   public UserEntity() {}
 
@@ -79,12 +77,6 @@ public class UserEntity implements Serializable {
     this.trips = trips;
   }
 
-  /**
-   * .
-   * 
-   * @param trip ()
-   * @return ()
-   */
   public TripEntity addTrip(TripEntity trip) {
     getTrips().add(trip);
     trip.setUser(this);
@@ -92,17 +84,33 @@ public class UserEntity implements Serializable {
     return trip;
   }
 
-  /**
-   * .
-   * 
-   * @param trip ()
-   * @return ()
-   */
   public TripEntity removeTrip(TripEntity trip) {
     getTrips().remove(trip);
     trip.setUser(null);
 
     return trip;
+  }
+
+  public List<SignedupEntity> getSignedups() {
+    return this.signedups;
+  }
+
+  public void setSignedups(List<SignedupEntity> signedups) {
+    this.signedups = signedups;
+  }
+
+  public SignedupEntity addSignedup(SignedupEntity signedup) {
+    getSignedups().add(signedup);
+    signedup.setUser(this);
+
+    return signedup;
+  }
+
+  public SignedupEntity removeSignedup(SignedupEntity signedup) {
+    getSignedups().remove(signedup);
+    signedup.setUser(null);
+
+    return signedup;
   }
 
 }

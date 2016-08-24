@@ -8,8 +8,8 @@ public interface UserDao {
 
   UserEntity findUserByEmail(String emailId);
 
-  UserEntity createUser(UserEntity obj);
+  void createUser(UserEntity obj);
 
-  UserEntity updatUser(UserEntity obj);
+  void updatUser(UserEntity obj);
 
 }

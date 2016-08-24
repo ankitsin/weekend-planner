@@ -3,8 +3,9 @@
     xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="weekend_planner">
-        <class>com.practo.wp.data.entity.DestinationEntity</class>
-        <class>com.practo.wp.data.entity.TripEntity</class>
-        <class>com.practo.wp.data.entity.UserEntity</class>
+    	<class>com.practo.wp.data.entity.DestinationEntity</class>
+    	<class>com.practo.wp.data.entity.SignedupEntity</class>
+    	<class>com.practo.wp.data.entity.TripEntity</class>
+    	<class>com.practo.wp.data.entity.UserEntity</class>
     </persistence-unit>
 </persistence>

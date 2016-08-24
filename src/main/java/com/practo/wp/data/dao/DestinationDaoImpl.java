@@ -27,17 +27,16 @@ public class DestinationDaoImpl implements DestinationDao {
   }
 
   @Transactional
-  public DestinationEntity createDestination(DestinationEntity obj) {
-    return (DestinationEntity) template.save(obj);
+  public void createDestination(DestinationEntity obj) {
+    template.save(obj);
   }
 
   @Transactional
-  public DestinationEntity updatDestination(DestinationEntity obj) {
+  public void updatDestination(DestinationEntity obj) {
     template.update(obj);
-    return obj;
   }
 
-  @Override
+  @Transactional
   public Iterable<DestinationEntity> fetchIdByName(String[] name) {
     // TODO Auto-generated method stub
     DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);

@@ -1,16 +1,8 @@
 package com.practo.wp.data.entity;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -80,12 +72,6 @@ public class DestinationEntity implements Serializable {
     this.trips = trips;
   }
 
-  /**
-   * .
-   * 
-   * @param trip ()
-   * @return ()
-   */
   public TripEntity addTrip(TripEntity trip) {
     getTrips().add(trip);
     trip.setDestination(this);
@@ -93,12 +79,6 @@ public class DestinationEntity implements Serializable {
     return trip;
   }
 
-  /**
-   * .
-   * 
-   * @param trip (trip)
-   * @return ()
-   */
   public TripEntity removeTrip(TripEntity trip) {
     getTrips().remove(trip);
     trip.setDestination(null);

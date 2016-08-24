@@ -32,14 +32,13 @@ public class TripDaoImpl implements TripDao {
   }
 
   @Transactional
-  public TripEntity createTrip(TripEntity obj) {
-    return (TripEntity) template.save(obj);
+  public void createTrip(TripEntity obj) {
+    template.save(obj);
   }
 
   @Transactional
-  public TripEntity updateTrip(TripEntity obj) {
+  public void updateTrip(TripEntity obj) {
     template.update(obj);
-    return obj;
   }
 
   /**
@@ -106,7 +105,8 @@ public class TripDaoImpl implements TripDao {
       entity = destinationDao.fetchIdByType(type);
     }
     int size = 0;
-    for (@SuppressWarnings("unused") DestinationEntity temp : entity) {
+    for (@SuppressWarnings("unused")
+    DestinationEntity temp : entity) {
       size++;
     }
 

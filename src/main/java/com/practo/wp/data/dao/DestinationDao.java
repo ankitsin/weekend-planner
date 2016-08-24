@@ -9,9 +9,9 @@ public interface DestinationDao {
 
   Iterable<DestinationEntity> getAllDestination();
 
-  DestinationEntity createDestination(DestinationEntity obj);
+  void createDestination(DestinationEntity obj);
 
-  DestinationEntity updatDestination(DestinationEntity obj);
+  void updatDestination(DestinationEntity obj);
 
   Iterable<DestinationEntity> fetchIdByName(String[] name);
 

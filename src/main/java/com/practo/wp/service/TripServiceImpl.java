@@ -1,9 +1,11 @@
 package com.practo.wp.service;
 
 import com.practo.wp.data.dao.DestinationDao;
+import com.practo.wp.data.dao.SignedupDao;
 import com.practo.wp.data.dao.TripDao;
 import com.practo.wp.data.dao.UserDao;
 import com.practo.wp.data.entity.DestinationEntity;
+import com.practo.wp.data.entity.SignedupEntity;
 import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
 import com.practo.wp.exception.ExceptionMessageThrow;
@@ -33,6 +35,8 @@ public class TripServiceImpl implements TripService {
   private TripDao tripDao;
   @Autowired
   private UserDao userDao;
+  @Autowired
+  private SignedupDao signedupDao;
   @Autowired
   private mailSendUtility smtpMailSender;
 
@@ -65,40 +69,41 @@ public class TripServiceImpl implements TripService {
     String[] temp = tripIdemailId.split(",");
     String tripId = temp[0];
     String emailId = temp[1];
+
     TripEntity entity = tripDao.findTrip(Integer.parseInt(tripId));
-    if (entity.getSpaceLeft() > 0) {
+    Trip model = new Trip();
+    model.fetchTrip(entity);
+    // UserEntity postedUser = entity.getUser();
+    UserEntity signedUpUser = userDao.findUserByEmail(emailId);
+    Iterable<SignedupEntity> var =
+        signedupDao.search(Integer.parseInt(tripId), signedUpUser.getUserId());
+    System.out.println(
+        Integer.parseInt(tripId) + " " + signedUpUser.getUserId() + "@@@@@@@@@@@@@@@@@@@@@" + var);
+    if (entity.getSpaceLeft() > 0 && !var.iterator().hasNext()) {
+
       entity.setGoingPeople(entity.getGoingPeople() + 1);
       entity.setSpaceLeft(entity.getSpaceLeft() - 1);
-      TripEntity newEntity = tripDao.updateTrip(entity);
-      Trip model = new Trip();
-      model.fetchTrip(newEntity);
+      tripDao.updateTrip(entity);
+      // model.fetchTrip(newEntity);
+
+      SignedupEntity signEntity = new SignedupEntity();
+      signEntity.setTrip(tripDao.findTrip(Integer.parseInt(tripId)));
+      signEntity.setUser(signedUpUser);
+      signedupDao.create(signEntity);
       String location = model.getDestinationLocation();
       smtpMailSender.send(emailId, "Signed up for Trip: " + entity.getTripName(),
           "You have signed up for trip :" + entity.getTripName() + " with destination :" + location
               + "  on date: " + entity.getGoingDate());
-      UserEntity postedUser = entity.getUser();
-      UserEntity signedUpUser = userDao.findUserByEmail(emailId);
-      smtpMailSender.send(postedUser.getEmailId(),
+
+      smtpMailSender.send(entity.getUser().getEmailId(),
           signedUpUser.getName() + "signed for Trip: " + entity.getTripName(),
           signedUpUser.getName() + "( " + signedUpUser.getEmailId() + "," + signedUpUser.getMobile()
               + ") has signed up for trip :" + entity.getTripName() + " with destination :"
               + location + "  dated on: " + entity.getGoingDate());
+
+
       return model;
     }
-
-    // Iterable<TripEntity> entity = tripDao.findByUserUserIdAndIsDeleted(id, (byte) 0);
-    // List<Trip> trip = new ArrayList<Trip>();
-    // for (TripEntity temp : entity) {
-    // System.out.println(temp);
-    // try {
-    // Trip dto = Trip.class.newInstance();
-    // dto.fetchTrip(temp);
-    // trip.add(dto);
-    // } catch (InstantiationException | IllegalAccessException exc) {
-    // System.out.printf("Exception while DAO get for ID :" + exc);
-    // return null;
-    // }
-    // }
     return null;
 
   }
@@ -115,7 +120,7 @@ public class TripServiceImpl implements TripService {
     Date date = new Date();
     entity.setCreatedAt(date);
     entity.setModifiedAt(date);
-    entity = tripDao.createTrip(entity);
+    tripDao.createTrip(entity);
     model.fetchTrip(entity);
     return model;
   }
@@ -131,8 +136,8 @@ public class TripServiceImpl implements TripService {
     TripEntity trip = tripDao.findTrip(model.getTripId());
     entity.setCreatedAt(trip.getCreatedAt());
     entity.setModifiedAt(date);
-    TripEntity newEntity = tripDao.updateTrip(entity);
-    model.fetchTrip(newEntity);
+    tripDao.updateTrip(entity);
+    model.fetchTrip(entity);
     return model;
     // TripEntity entity = model.getEntity();
     // entity = tripDao.save(entity);
@@ -146,7 +151,7 @@ public class TripServiceImpl implements TripService {
     Date date = new Date();
     entity.setModifiedAt(date);
     entity.setIsDeleted((byte) 1);
-    entity = tripDao.updateTrip(entity);
+    tripDao.updateTrip(entity);
     return "Operation done successfully";
   }
 

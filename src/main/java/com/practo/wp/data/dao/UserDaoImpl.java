@@ -23,14 +23,13 @@ public class UserDaoImpl implements UserDao {
   }
 
   @Transactional
-  public UserEntity createUser(UserEntity obj) {
-    return (UserEntity) template.save(obj);
+  public void createUser(UserEntity obj) {
+    template.save(obj);
   }
 
   @Transactional
-  public UserEntity updatUser(UserEntity obj) {
+  public void updatUser(UserEntity obj) {
     template.update(obj);
-    return obj;
   }
 
   @Override

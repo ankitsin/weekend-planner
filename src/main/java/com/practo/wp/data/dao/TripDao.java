@@ -13,14 +13,14 @@ public interface TripDao {
 
   Iterable<TripEntity> getAllTrip();
 
-  TripEntity createTrip(TripEntity obj);
+  void createTrip(TripEntity obj);
 
-  TripEntity updateTrip(TripEntity obj);
+  void updateTrip(TripEntity obj);
 
 
   Iterable<TripEntity> findTripAndNotDeleted();
 
- 
+
   Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable);
   //
   // @Transactional
