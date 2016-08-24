@@ -52,7 +52,6 @@ public class DestinationDaoImpl implements DestinationDao {
     DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);
     criteria = criteria.add(Restrictions.in("type", type));
     return (Iterable<DestinationEntity>) template.findByCriteria(criteria);
-//    return null;
   }
 
 }
