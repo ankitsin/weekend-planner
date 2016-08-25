@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/redirect")
 public class RedirectController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public String method(HttpServletResponse httpServletResponse) {

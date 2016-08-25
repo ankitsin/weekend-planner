@@ -18,7 +18,7 @@ public interface TripDao {
   void updateTrip(TripEntity obj);
 
 
-  Iterable<TripEntity> findTripAndNotDeleted();
+  Iterable<TripEntity> findTripAndNotDeleted(Pageable pageable);
 
 
   Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable);

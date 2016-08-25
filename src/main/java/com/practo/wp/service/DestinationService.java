@@ -11,6 +11,9 @@ public interface DestinationService {
   Iterable<Destination> getall();
 
   @Transactional
+  Iterable<String> getFilters();
+
+  @Transactional
   Destination getById(Integer id);
 
 }

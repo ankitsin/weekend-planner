@@ -44,7 +44,7 @@ public class TripController {
    */
   @RequestMapping(value = "/all", method = RequestMethod.GET)
   public Iterable<Trip> get(Pageable pageable) {
-    Iterable<Trip> dto = service.fetchAll(updatePageable(pageable, 50));
+    Iterable<Trip> dto = service.fetchAll(updatePageable(pageable, 10));
     return dto;
   }
 

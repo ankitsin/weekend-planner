@@ -1,5 +1,6 @@
 package com.practo.wp.model;
 
+import java.util.Date;
 
 /**
  * .
@@ -13,6 +14,27 @@ public class TripFilter {
   private String[] destinationType;
   private Integer[] averageCost;
   private Integer[] numOfDays;
+  private String startDate;
+  private String endDate;
+
+  public String getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
+
+  public String getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(String endDate) {
+    this.endDate = endDate;
+  }
+
+
+
   @SuppressWarnings("unused")
   private byte isdelete = (byte) 0;
 

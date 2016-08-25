@@ -112,7 +112,9 @@ public class Trip {
   public String getDestinationLocation() {
     return this.destination.getLocation();
   }
-
+  public String getDestinationType() {
+    return this.destination.getType();
+  }
   public byte getIsDeleted() {
     return this.isDeleted;
   }
@@ -162,6 +164,7 @@ public class Trip {
       setGoingDate(entity.getGoingDate());
       setGoingPeople(entity.getGoingPeople());
       setSpaceLeft(entity.getSpaceLeft());
+      setNumOfDay(entity.getNumOfDay());
       setUser(entity.getUser());
       setDestination(entity.getDestination());
       // System.out.println(entity.getTripName());

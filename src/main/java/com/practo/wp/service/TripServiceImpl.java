@@ -47,7 +47,7 @@ public class TripServiceImpl implements TripService {
    * @return ()
    */
   public Iterable<Trip> fetchAll(Pageable pageable) {
-    Iterable<TripEntity> entity = tripDao.findTripAndNotDeleted();
+    Iterable<TripEntity> entity = tripDao.findTripAndNotDeleted(pageable);
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);

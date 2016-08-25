@@ -54,6 +54,12 @@ public class DestinationServiceImpl implements DestinationService {
       return null;
     }
   }
+
+  @Override
+  public Iterable<String> getFilters() {
+    Iterable<String> filter = destinationDao.getFilters();
+    return filter;
+  }
 }
 
 
