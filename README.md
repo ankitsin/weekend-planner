@@ -34,7 +34,7 @@ MySql
 
 ### Schema Design
 [My Schema Design]
-(https://s16.postimg.org/kxivb7n5h/Screen_Shot_2016_08_23_at_9_08_01_AM.png)
+(https://drive.google.com/open?id=0B8mDgmNLi0iDRTJHVnppUXdlN1U)
 
 ### Apiary Documentation Link
 Here the Apiary documnetation of the API. [Link](http://docs.weekendplanner.apiary.io/)
