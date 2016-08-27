@@ -43,8 +43,8 @@ public class TripController {
    * @return ()
    */
   @RequestMapping(value = "/all", method = RequestMethod.GET)
-  public Iterable<Trip> get(Pageable pageable) {
-    Iterable<Trip> dto = service.fetchAll(updatePageable(pageable, 10));
+  public Iterable<Trip> get(String emailId, Pageable pageable) {
+    Iterable<Trip> dto = service.fetchAll(emailId, updatePageable(pageable, 10));
     return dto;
   }
 
@@ -62,9 +62,9 @@ public class TripController {
    * @return ()
    */
   @RequestMapping(value = "/filter", method = RequestMethod.GET)
-  public Iterable<Trip> get2(TripFilter filter, Pageable pageable) {
+  public Iterable<Trip> get2(String emailId, TripFilter filter, Pageable pageable) {
     System.out.println(filter);
-    Iterable<Trip> dto = service.fecthOnFilter(filter, pageable);
+    Iterable<Trip> dto = service.fecthOnFilter(emailId, filter, pageable);
     return dto;
   }
 

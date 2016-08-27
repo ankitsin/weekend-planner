@@ -46,8 +46,8 @@ public class TripServiceImpl implements TripService {
    * @param pageable ()
    * @return ()
    */
-  public Iterable<Trip> fetchAll(Pageable pageable) {
-    Iterable<TripEntity> entity = tripDao.findTripAndNotDeleted(pageable);
+  public Iterable<Trip> fetchAll(String email, Pageable pageable) {
+    Iterable<TripEntity> entity = tripDao.findTripAndNotDeleted(email, pageable);
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {
       System.out.println(temp);
@@ -93,13 +93,15 @@ public class TripServiceImpl implements TripService {
       String location = model.getDestinationLocation();
       smtpMailSender.send(emailId, "Signed up for Trip: " + entity.getTripName(),
           "You have signed up for trip : " + entity.getTripName() + " with destination : "
-              + location + "  on date: " + entity.getGoingDate());
+              + location + " with Trip Id: " + entity.getTripId() + "  on date: "
+              + entity.getGoingDate());
 
       smtpMailSender.send(entity.getUser().getEmailId(),
           signedUpUser.getName() + " signed for Trip: " + entity.getTripName(),
           signedUpUser.getName() + "( " + signedUpUser.getEmailId() + "," + signedUpUser.getMobile()
               + ") has signed up for trip :" + entity.getTripName() + " with destination : "
-              + location + "  dated on: " + entity.getGoingDate());
+              + location + " with Trip Id: " + entity.getTripId() + "  dated on: "
+              + entity.getGoingDate());
 
 
       return model;
@@ -131,6 +133,10 @@ public class TripServiceImpl implements TripService {
     System.out.println(date + " Date destination name");
     tripDao.createTrip(entity);
     System.out.println(date + " Date destination name");
+    // SignedupEntity signEntity = new SignedupEntity();
+    // signEntity.setTrip(tripDao.findTrip(Integer.parseInt(tripId)));
+    // signEntity.setUser(signedUpUser);
+    // signedupDao.create(signEntity);
     model.fetchTrip(entity);
     return model;
   }
@@ -171,8 +177,8 @@ public class TripServiceImpl implements TripService {
    * @param filter ()
    * @return ()
    */
-  public Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pageable) {
-    Iterable<TripEntity> entity = tripDao.findTripOnFilter(filter, pageable);
+  public Iterable<Trip> fecthOnFilter(String email, TripFilter filter, Pageable pageable) {
+    Iterable<TripEntity> entity = tripDao.findTripOnFilter(email, filter, pageable);
     // Iterable<TripEntity> entity = tripDao.getAllTrip();
     List<Trip> trip = new ArrayList<Trip>();
     for (TripEntity temp : entity) {

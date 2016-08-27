@@ -2,6 +2,7 @@ package com.practo.wp.data.dao;
 
 import com.practo.wp.data.entity.DestinationEntity;
 import com.practo.wp.data.entity.TripEntity;
+import com.practo.wp.data.entity.UserEntity;
 import com.practo.wp.model.TripFilter;
 
 import java.text.DateFormat;
@@ -27,6 +28,8 @@ public class TripDaoImpl implements TripDao {
   private HibernateTemplate template;
   @Autowired
   private DestinationDao destinationDao;
+  @Autowired
+  private UserDao userDao;
 
   @Transactional
   public TripEntity findTrip(int tripId) {
@@ -49,6 +52,12 @@ public class TripDaoImpl implements TripDao {
     template.update(obj);
   }
 
+  @Transactional
+  public void deleteTrip(int tripId) {
+    TripEntity obj = template.load(TripEntity.class, tripId);
+    template.delete(obj);
+  }
+
   /**
    * .
    * 
@@ -56,9 +65,14 @@ public class TripDaoImpl implements TripDao {
    */
   @SuppressWarnings("unchecked")
   @Transactional
-  public Iterable<TripEntity> findTripAndNotDeleted(Pageable pageable) {
+  public Iterable<TripEntity> findTripAndNotDeleted(String email, Pageable pageable) {
     DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
     criteria = criteria.add(Restrictions.eq("isDeleted", (byte) 0));
+    if (email != null && email != "") {
+      UserEntity entity = userDao.findUserByEmail(email);
+      criteria =
+          criteria.createAlias("user", "u").add(Restrictions.ne("u.userId", entity.getUserId()));
+    }
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String date = dateFormat.format(new Date());
     try {
@@ -84,10 +98,15 @@ public class TripDaoImpl implements TripDao {
    */
   @SuppressWarnings("unchecked")
   @Transactional
-  public Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable) {
+  public Iterable<TripEntity> findTripOnFilter(String email, TripFilter filter, Pageable pageable) {
     DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
     criteria =
         criteria.add(Restrictions.eq("isDeleted", (byte) 0)).addOrder(Order.asc("goingDate"));
+    if (email != null && email != "") {
+      UserEntity entity = userDao.findUserByEmail(email);
+      criteria =
+          criteria.createAlias("user", "u").add(Restrictions.ne("u.userId", entity.getUserId()));
+    }
     if (filter.getSpaceLeft() != null && filter.getSpaceLeft().length > 0) {
       criteria = criteria.add(Restrictions.in("spaceLeft", filter.getSpaceLeft()));
     }

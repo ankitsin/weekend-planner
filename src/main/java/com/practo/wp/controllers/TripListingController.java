@@ -44,10 +44,12 @@ public class TripListingController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(Model model, Pageable pageable, HttpSession session) {
-    model.addAttribute("getAllTrip", tripService.fetchAll(updatePageable(pageable, 10)));
+    String email = (String) session.getAttribute("email");
+    model.addAttribute("getAllTrip", tripService.fetchAll(email, updatePageable(pageable, 10)));
     model.addAttribute("destinations", destService.getall());
     model.addAttribute("destFilters", destService.getFilters());
     model.addAttribute("emailId", session.getAttribute("email"));
+    model.addAttribute("name", session.getAttribute("name"));
     // model.addAttribute("totalPage", page)
     return "index";
   }
@@ -170,7 +172,8 @@ public class TripListingController {
 
   @RequestMapping(value = "/search", method = RequestMethod.GET)
   public String search(Model model, String destinationName, String destinationType,
-      String numOfDays, String startDate, String endDate, String averageCost, Pageable pageable) {
+      String numOfDays, String startDate, String endDate, String averageCost, Pageable pageable,
+      HttpSession session) {
     TripFilter object = new TripFilter();
     if (destinationName != null && destinationName != "") {
       object.setDestinationName(destinationName);
@@ -191,8 +194,9 @@ public class TripListingController {
       object.setNumOfDays(numOfDays);
     }
     System.out.println(object);
+    String email = (String) session.getAttribute("email");
     model.addAttribute("getAllTrip",
-        tripService.fecthOnFilter(object, updatePageable(pageable, 10)));
+        tripService.fecthOnFilter(email, object, updatePageable(pageable, 10)));
     model.addAttribute("destinations", destService.getall());
     model.addAttribute("destFilters", destService.getFilters());
     model.addAttribute("filtername", destinationName);

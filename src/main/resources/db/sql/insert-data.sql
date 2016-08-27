@@ -1,1 +1,0 @@
-insert into users (email_id,name,mobile) values ("ankitsin3011@yahoo.com","Vikas Bhoria","8960032462");

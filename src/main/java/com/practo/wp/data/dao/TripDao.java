@@ -17,11 +17,12 @@ public interface TripDao {
 
   void updateTrip(TripEntity obj);
 
+  void deleteTrip(int tripId);
 
-  Iterable<TripEntity> findTripAndNotDeleted(Pageable pageable);
+  Iterable<TripEntity> findTripAndNotDeleted(String email, Pageable pageable);
 
 
-  Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable);
+  Iterable<TripEntity> findTripOnFilter(String email, TripFilter filter, Pageable pageable);
   //
   // @Transactional
   // Iterable<TripEntity> findByGoingPeopleAndSpaceLeft(int goingdate, int space);

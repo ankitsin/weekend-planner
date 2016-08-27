@@ -13,12 +13,12 @@ import javax.transaction.Transactional;
 
 public interface TripService {
 
-  Iterable<Trip> fetchAll(Pageable pageable);
+  Iterable<Trip> fetchAll(String email, Pageable pageable);
 
   Trip signUpForTrip(String tripName, String emailId) throws MessagingException;
 
 
-  Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pagebale);
+  Iterable<Trip> fecthOnFilter(String email, TripFilter filter, Pageable pagebale);
 
   Trip fetchOne(int id);
 

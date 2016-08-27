@@ -4,7 +4,8 @@
 <script type="text/javascript" src="js/lib/jquery.owl.carousel.js"></script>
 <script type="text/javascript" src="js/lib/jquery-ui.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=oauthReady"
+	async defer></script>
 <script type="text/javascript">
 	$('#form1').click(function() {
 
@@ -57,30 +58,55 @@
 	function signOut() {
 		var auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(function(a) {
-			document.getElementById("signout").style.display = "none";
+			/* document.getElementById(goglogout).style.visibility = "visible"; */
+			document.getElementById("goglogin").textContent = "Login"
 			console.log('User signed out.');
 		});
 	}
 	function change() {
 		document.getElementById("signout").style.display = "";
 	}
-	function login(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log(googleUser.getAuthResponse().id_token);
-		var profile = googleUser.getBasicProfile();
-		$.post('/weekend_planner/login', {
-			name : profile.getName(),
-			id : profile.getId(),
-			email : profile.getEmail()
-		});
-	}
-	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log(profile);
-		console.log('ID: ' + googleUser.getAuthResponse().id_token);
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
+</script>
 
+<script type="text/javascript">
+	window.oauthReady = function() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+
+		});
+		function goologin() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2
+					.signIn(
+							{
+								scope : 'https://www.googleapis.com/auth/user.phonenumbers.read'
+							})
+					.then(
+							function(googleUser) {
+
+								var profile = googleUser.getBasicProfile();
+								console
+										.log(googleUser.getAuthResponse().id_token);
+								var profile = googleUser.getBasicProfile();
+								$
+										.post(
+												'/weekend_planner/login',
+												{
+													name : profile.getName(),
+													id : profile.getId(),
+													email : profile.getEmail()
+												},
+												function() {
+
+													document
+															.getElementById("goglogin").textContent = "Hi "
+															.concat(profile
+																	.getName());
+													document
+															.getElementById("goglogout").style.display = "";
+												});
+							});
+		}
+		$("#googlelogin").on('click', goologin);
 	}
 </script>

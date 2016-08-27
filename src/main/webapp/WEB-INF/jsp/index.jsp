@@ -1,10 +1,15 @@
 <%@include file="header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <body>
 	<div id="page-wrap">
 		<div class="preloader"></div>
 		<%@include file="menu.jsp"%>
+		<c:if test="${not empty name}">
+
+			<script>
+				loginchange();
+			</script>
+		</c:if>
 		<section class="awe-parallax category-heading-section-demo">
 			<div class="container">
 				<div
@@ -89,14 +94,16 @@
 												</div>
 											</div> --%>
 										</div>
-										<form action="signup" method="post">
-											<input type="hidden" id="desttype" name="tripId"
-												value="${eachTrip.getTripId()}">
-											<div class="item-price-more">
-												<input type="submit" class="awe-btn"
-													value="Register For Trip">
-											</div>
-										</form>
+										<div>
+											<form action="signup" method="post">
+												<input type="hidden" id="desttype" name="tripId"
+													value="${eachTrip.getTripId()}">
+												<div class="item-price-more">
+													<input type="submit" class="awe-btn"
+														value="Register For Trip">
+												</div>
+											</form>
+										</div>
 									</div>
 								</c:forEach>
 							</div>
