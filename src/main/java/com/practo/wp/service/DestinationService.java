@@ -16,4 +16,7 @@ public interface DestinationService {
   @Transactional
   Destination getById(Integer id);
 
+  @Transactional
+  Destination getId(String destination);
+
 }

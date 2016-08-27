@@ -65,10 +65,10 @@ public class TripServiceImpl implements TripService {
   }
 
   @Override
-  public Trip signUpForTrip(String tripIdemailId) throws MessagingException {
-    String[] temp = tripIdemailId.split(",");
-    String tripId = temp[0];
-    String emailId = temp[1];
+  public Trip signUpForTrip(String tripId, String emailId) throws MessagingException {
+    // String[] temp = tripIdemailId.split(",");
+    // String tripId = temp[0];
+    // String emailId = temp[1];
 
     TripEntity entity = tripDao.findTrip(Integer.parseInt(tripId));
     Trip model = new Trip();
@@ -92,13 +92,13 @@ public class TripServiceImpl implements TripService {
       signedupDao.create(signEntity);
       String location = model.getDestinationLocation();
       smtpMailSender.send(emailId, "Signed up for Trip: " + entity.getTripName(),
-          "You have signed up for trip :" + entity.getTripName() + " with destination :" + location
-              + "  on date: " + entity.getGoingDate());
+          "You have signed up for trip : " + entity.getTripName() + " with destination : "
+              + location + "  on date: " + entity.getGoingDate());
 
       smtpMailSender.send(entity.getUser().getEmailId(),
-          signedUpUser.getName() + "signed for Trip: " + entity.getTripName(),
+          signedUpUser.getName() + " signed for Trip: " + entity.getTripName(),
           signedUpUser.getName() + "( " + signedUpUser.getEmailId() + "," + signedUpUser.getMobile()
-              + ") has signed up for trip :" + entity.getTripName() + " with destination :"
+              + ") has signed up for trip :" + entity.getTripName() + " with destination : "
               + location + "  dated on: " + entity.getGoingDate());
 
 
@@ -112,15 +112,25 @@ public class TripServiceImpl implements TripService {
 
   @Override
   public Trip create(Trip model) throws ExceptionMessageThrow {
-    TripEntity entity = model.post();
-    UserEntity user = userDao.findUser(model.posteduserId());
-    entity.setUser(user);
     DestinationEntity destination = destinationDao.findDestination(model.postedDestinationId());
+    System.out.println(destination.getLocation() + " Posted destination name");
+    System.out.println(destination.getType() + " Posted destination name");
+    System.out.println(destination.getDestinationId() + " Posted destination name");
+    UserEntity user = userDao.findUser(model.posteduserId());
+    System.out.println(user.getEmailId() + " Posted User email id");
+    TripEntity entity = model.post();
+    System.out.println(model.getGoingDate() + " Posted destination name");
+    entity.setUser(user);
+    System.out.println(model.getGoingDate() + " Posted destination name");
     entity.setDestination(destination);
     Date date = new Date();
+    System.out.println(model.getGoingDate() + " Posted destination name");
     entity.setCreatedAt(date);
+    System.out.println(model.getGoingDate() + " Posted destination name");
     entity.setModifiedAt(date);
+    System.out.println(date + " Date destination name");
     tripDao.createTrip(entity);
+    System.out.println(date + " Date destination name");
     model.fetchTrip(entity);
     return model;
   }
@@ -192,6 +202,12 @@ public class TripServiceImpl implements TripService {
     }
     return dto;
   }
+
+  // @Override
+  // public String getTotalPage() {
+  // String page = tripDao.getPages();
+  // return null;
+  // }
 
 
 }

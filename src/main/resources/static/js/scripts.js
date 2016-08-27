@@ -101,6 +101,7 @@
         e(".awe-calendar").each(function() {
             e(this).datepicker({
             	dateFormat: 'yy-mm-dd',
+            	minDate: '0',
                 showOtherMonths: !0,
                 selectOtherMonths: !0,
                 dayNamesMin: ["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"]

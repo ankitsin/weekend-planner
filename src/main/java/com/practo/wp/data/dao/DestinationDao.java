@@ -7,6 +7,8 @@ public interface DestinationDao {
 
   DestinationEntity findDestination(int id);
 
+  Iterable<DestinationEntity> findDestinationByName(String name);
+
   Iterable<DestinationEntity> getAllDestination();
 
   Iterable<String> getFilters();

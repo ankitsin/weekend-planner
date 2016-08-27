@@ -77,9 +77,10 @@ public class TripController {
    * 
    */
   @RequestMapping(value = "/signup", method = RequestMethod.POST)
-  public ResponseEntity<Trip> get1(@RequestBody String tripIdemailId) throws MessagingException {
-    System.out.println(tripIdemailId);
-    Trip dto = service.signUpForTrip(tripIdemailId);
+  public ResponseEntity<Trip> get1(@RequestBody String tripId, String emailId)
+      throws MessagingException {
+    // System.out.println(tripIdemailId);
+    Trip dto = service.signUpForTrip(tripId, emailId);
     ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.CREATED);
     return re;
   }

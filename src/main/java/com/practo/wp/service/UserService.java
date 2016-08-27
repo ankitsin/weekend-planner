@@ -15,4 +15,7 @@ public interface UserService {
    */
   @Transactional
   User get(Integer id) throws MessagingException;
+
+  @Transactional
+  User getId(String emailId);
 }

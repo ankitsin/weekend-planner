@@ -31,4 +31,6 @@ public interface TripDao {
   //
   // @Transactional
   // Iterable<TripEntity> findByTripName(String name);
+
+  // String getPages();
 }

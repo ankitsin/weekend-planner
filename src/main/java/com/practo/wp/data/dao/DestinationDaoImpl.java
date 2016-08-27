@@ -60,9 +60,18 @@ public class DestinationDaoImpl implements DestinationDao {
   public Iterable<String> getFilters() {
     DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);
     criteria = criteria.setProjection(Projections.distinct(Projections.property("type")));
-//    criteria = criteria.
+    // criteria = criteria.
     // TODO Auto-generated method stub
-    return  (Iterable<String>) template.findByCriteria(criteria);
+    return (Iterable<String>) template.findByCriteria(criteria);
+  }
+
+  @Override
+  public Iterable<DestinationEntity> findDestinationByName(String name) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);
+    criteria = criteria.add(Restrictions.eq("location", name));
+    // criteria = criteria.
+    // TODO Auto-generated method stub
+    return (Iterable<DestinationEntity>) template.findByCriteria(criteria);
   }
 
 }

@@ -15,17 +15,18 @@ public interface TripService {
 
   Iterable<Trip> fetchAll(Pageable pageable);
 
-  Trip signUpForTrip(String tripIdemailId) throws MessagingException;
+  Trip signUpForTrip(String tripName, String emailId) throws MessagingException;
 
 
   Iterable<Trip> fecthOnFilter(TripFilter filter, Pageable pagebale);
 
   Trip fetchOne(int id);
 
-  @Transactional
   Trip create(Trip entity) throws ExceptionMessageThrow;
 
   String delete(int id) throws ExceptionMessageThrow;
 
   Trip update(Trip entity) throws ExceptionMessageThrow;
+
+  // String getTotalPage();
 }

@@ -56,4 +56,14 @@ public class Destination {
       setDistance(entity.getDistance());
     }
   }
+
+  public DestinationEntity convert() {
+    DestinationEntity entity = new DestinationEntity();
+    entity.setDestinationId(getDestinationId());
+    entity.setLocation(entity.getLocation());
+    entity.setType(entity.getType());
+    entity.setDistance(entity.getDistance());
+    return entity;
+
+  }
 }

@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +40,7 @@ public class TripDaoImpl implements TripDao {
 
   @Transactional
   public void createTrip(TripEntity obj) {
+    System.out.println("#### In the create object part#######");
     template.save(obj);
   }
 
@@ -56,6 +59,15 @@ public class TripDaoImpl implements TripDao {
   public Iterable<TripEntity> findTripAndNotDeleted(Pageable pageable) {
     DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
     criteria = criteria.add(Restrictions.eq("isDeleted", (byte) 0));
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String date = dateFormat.format(new Date());
+    try {
+      Date today = dateFormat.parse(date);
+      criteria = criteria.add(Restrictions.ge("goingDate", today)).addOrder(Order.asc("goingDate"));
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     System.out.println(pageable.getOffset());
     return (Iterable<TripEntity>) template.findByCriteria(criteria, pageable.getOffset(),
         pageable.getPageSize());
@@ -74,15 +86,16 @@ public class TripDaoImpl implements TripDao {
   @Transactional
   public Iterable<TripEntity> findTripOnFilter(TripFilter filter, Pageable pageable) {
     DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
-    criteria = criteria.add(Restrictions.eq("isDeleted", (byte) 0));
-    if (filter.getSpaceLeft() != null) {
+    criteria =
+        criteria.add(Restrictions.eq("isDeleted", (byte) 0)).addOrder(Order.asc("goingDate"));
+    if (filter.getSpaceLeft() != null && filter.getSpaceLeft().length > 0) {
       criteria = criteria.add(Restrictions.in("spaceLeft", filter.getSpaceLeft()));
     }
-    if (filter.getDestinationName() != null) {
+    if (filter.getDestinationName() != null && filter.getDestinationName().length > 0) {
       criteria = criteria.createAlias("destination", "dest").add(
           Restrictions.in("dest.destinationId", fetchDestinationIdByNameOrType(filter, "name")));
     }
-    if (filter.getDestinationType() != null) {
+    if (filter.getDestinationType() != null && filter.getDestinationType().length > 0) {
       criteria = criteria.createAlias("destination", "dest").add(
           Restrictions.in("dest.destinationId", fetchDestinationIdByNameOrType(filter, "type")));
     }
@@ -98,11 +111,11 @@ public class TripDaoImpl implements TripDao {
       }
 
     }
-    if (filter.getNumOfDays() != null) {
+    if (filter.getNumOfDays() != null && filter.getNumOfDays().length > 0) {
       criteria = criteria.add(Restrictions.in("numOfDay", filter.getNumOfDays()));
     }
-    if (filter.getAverageCost() != null) {
-      criteria = criteria.add(Restrictions.in("averageCost", filter.getAverageCost()));
+    if (filter.getAverageCost() != null && filter.getAverageCost() != 0) {
+      criteria = criteria.add(Restrictions.between("averageCost", 0, filter.getAverageCost()));
     }
     return (Iterable<TripEntity>) template.findByCriteria(criteria);
   }
@@ -141,4 +154,11 @@ public class TripDaoImpl implements TripDao {
   //
   // @Transactional
   // Iterable<TripEntity> findByTripName(String name);
+
+  // @Override
+  // public String getPages() {
+  // DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
+  // criteria = criteria.setProjection(Projections.rowCount());
+  // return template.findByCriteria(criteria);
+  // }
 }

@@ -101,6 +101,10 @@ public class Trip {
     return this.user.getName();
   }
 
+  public String getUserEmailID() {
+    return this.user.getEmailId();
+  }
+
   public int getUserId() {
     return this.user.getUserId();
   }
@@ -112,9 +116,11 @@ public class Trip {
   public String getDestinationLocation() {
     return this.destination.getLocation();
   }
+
   public String getDestinationType() {
     return this.destination.getType();
   }
+
   public byte getIsDeleted() {
     return this.isDeleted;
   }
@@ -194,6 +200,7 @@ public class Trip {
     et.setGoingDate(getGoingDate());
     et.setGoingPeople(getGoingPeople());
     et.setNumOfDay(getNumOfDay());
+    et.setSpaceLeft(getSpaceLeft());
     if (new Integer(getTripId()) != null) {
       et.setTripId(getTripId());
     }

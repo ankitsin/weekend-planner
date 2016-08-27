@@ -17,7 +17,7 @@ public class TripEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "trip_id")
   private int tripId;
 
@@ -28,7 +28,7 @@ public class TripEntity implements Serializable {
   @Column(name = "created_at")
   private Date createdAt;
 
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "going_date")
   private Date goingDate;
 
@@ -51,6 +51,10 @@ public class TripEntity implements Serializable {
   @Column(name = "trip_name")
   private String tripName;
 
+  // bi-directional many-to-one association to SignedupEntity
+  @OneToMany(mappedBy = "trip")
+  private List<SignedupEntity> signedups;
+
   // bi-directional many-to-one association to DestinationEntity
   @ManyToOne
   @JoinColumn(name = "destination_id")
@@ -60,10 +64,6 @@ public class TripEntity implements Serializable {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity user;
-
-  // bi-directional many-to-one association to SignedupEntity
-  @OneToMany(mappedBy = "trip")
-  private List<SignedupEntity> signedups;
 
   public TripEntity() {}
 
@@ -147,22 +147,6 @@ public class TripEntity implements Serializable {
     this.tripName = tripName;
   }
 
-  public DestinationEntity getDestination() {
-    return this.destination;
-  }
-
-  public void setDestination(DestinationEntity destination) {
-    this.destination = destination;
-  }
-
-  public UserEntity getUser() {
-    return this.user;
-  }
-
-  public void setUser(UserEntity user) {
-    this.user = user;
-  }
-
   public List<SignedupEntity> getSignedups() {
     return this.signedups;
   }
@@ -183,6 +167,22 @@ public class TripEntity implements Serializable {
     signedup.setTrip(null);
 
     return signedup;
+  }
+
+  public DestinationEntity getDestination() {
+    return this.destination;
+  }
+
+  public void setDestination(DestinationEntity destination) {
+    this.destination = destination;
+  }
+
+  public UserEntity getUser() {
+    return this.user;
+  }
+
+  public void setUser(UserEntity user) {
+    this.user = user;
   }
 
 }

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     try {
       User dto = User.class.newInstance();
       dto.setData(entity);
-      smtpMailSender.send(dto.getEmailId(), "Test mail from Spring", "Howdy");
+      // smtpMailSender.send(dto.getEmailId(), "Test mail from Spring", "Howdy");
       return dto;
     } catch (InstantiationException | IllegalAccessException exc) {
       System.out.printf("Exception while DAO get for ID :" + id, exc);
@@ -45,5 +45,21 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  public User getId(String emailId) {
+    UserEntity entity = userDao.findUserByEmail(emailId);
+    System.out.println("#################");
+    User dto;
+    try {
+      dto = User.class.newInstance();
+      dto.setData(entity);
+      return dto;
+    } catch (InstantiationException | IllegalAccessException exc) {
+      // TODO Auto-generated catch block
+      exc.printStackTrace();
+      return null;
+    }
+
+  }
 
 }

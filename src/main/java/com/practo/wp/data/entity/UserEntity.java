@@ -10,107 +10,119 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name = "user")
-@NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u")
+@Table(name="user")
+@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
 public class UserEntity implements Serializable {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "user_id")
-  private int userId;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="user_id")
+	private int userId;
 
-  @Column(name = "email_id")
-  private String emailId;
+	@Column(name="email_id")
+	private String emailId;
 
-  private String mobile;
+	private String mobile;
 
-  private String name;
+	private String name;
 
-  // bi-directional many-to-one association to TripEntity
-  @OneToMany(mappedBy = "user")
-  private List<TripEntity> trips;
+	@Column(name="token_id")
+	private String tokenId;
 
-  // bi-directional many-to-one association to SignedupEntity
-  @OneToMany(mappedBy = "user")
-  private List<SignedupEntity> signedups;
+	//bi-directional many-to-one association to SignedupEntity
+	@OneToMany(mappedBy="user")
+	private List<SignedupEntity> signedups;
 
-  public UserEntity() {}
+	//bi-directional many-to-one association to TripEntity
+	@OneToMany(mappedBy="user")
+	private List<TripEntity> trips;
 
-  public int getUserId() {
-    return this.userId;
-  }
+	public UserEntity() {
+	}
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+	public int getUserId() {
+		return this.userId;
+	}
 
-  public String getEmailId() {
-    return this.emailId;
-  }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-  public void setEmailId(String emailId) {
-    this.emailId = emailId;
-  }
+	public String getEmailId() {
+		return this.emailId;
+	}
 
-  public String getMobile() {
-    return this.mobile;
-  }
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
-  public void setMobile(String mobile) {
-    this.mobile = mobile;
-  }
+	public String getMobile() {
+		return this.mobile;
+	}
 
-  public String getName() {
-    return this.name;
-  }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getName() {
+		return this.name;
+	}
 
-  public List<TripEntity> getTrips() {
-    return this.trips;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setTrips(List<TripEntity> trips) {
-    this.trips = trips;
-  }
+	public String getTokenId() {
+		return this.tokenId;
+	}
 
-  public TripEntity addTrip(TripEntity trip) {
-    getTrips().add(trip);
-    trip.setUser(this);
+	public void setTokenId(String tokenId) {
+		this.tokenId = tokenId;
+	}
 
-    return trip;
-  }
+	public List<SignedupEntity> getSignedups() {
+		return this.signedups;
+	}
 
-  public TripEntity removeTrip(TripEntity trip) {
-    getTrips().remove(trip);
-    trip.setUser(null);
+	public void setSignedups(List<SignedupEntity> signedups) {
+		this.signedups = signedups;
+	}
 
-    return trip;
-  }
+	public SignedupEntity addSignedup(SignedupEntity signedup) {
+		getSignedups().add(signedup);
+		signedup.setUser(this);
 
-  public List<SignedupEntity> getSignedups() {
-    return this.signedups;
-  }
+		return signedup;
+	}
 
-  public void setSignedups(List<SignedupEntity> signedups) {
-    this.signedups = signedups;
-  }
+	public SignedupEntity removeSignedup(SignedupEntity signedup) {
+		getSignedups().remove(signedup);
+		signedup.setUser(null);
 
-  public SignedupEntity addSignedup(SignedupEntity signedup) {
-    getSignedups().add(signedup);
-    signedup.setUser(this);
+		return signedup;
+	}
 
-    return signedup;
-  }
+	public List<TripEntity> getTrips() {
+		return this.trips;
+	}
 
-  public SignedupEntity removeSignedup(SignedupEntity signedup) {
-    getSignedups().remove(signedup);
-    signedup.setUser(null);
+	public void setTrips(List<TripEntity> trips) {
+		this.trips = trips;
+	}
 
-    return signedup;
-  }
+	public TripEntity addTrip(TripEntity trip) {
+		getTrips().add(trip);
+		trip.setUser(this);
+
+		return trip;
+	}
+
+	public TripEntity removeTrip(TripEntity trip) {
+		getTrips().remove(trip);
+		trip.setUser(null);
+
+		return trip;
+	}
 
 }

@@ -9,49 +9,50 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name = "signedup")
-@NamedQuery(name = "SignedupEntity.findAll", query = "SELECT s FROM SignedupEntity s")
+@Table(name="signedup")
+@NamedQuery(name="SignedupEntity.findAll", query="SELECT s FROM SignedupEntity s")
 public class SignedupEntity implements Serializable {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 
-  // bi-directional many-to-one association to TripEntity
-  @ManyToOne
-  @JoinColumn(name = "signed_trip")
-  private TripEntity trip;
+	//bi-directional many-to-one association to TripEntity
+	@ManyToOne
+	@JoinColumn(name="signed_trip")
+	private TripEntity trip;
 
-  // bi-directional many-to-one association to UserEntity
-  @ManyToOne
-  @JoinColumn(name = "signup_user")
-  private UserEntity user;
+	//bi-directional many-to-one association to UserEntity
+	@ManyToOne
+	@JoinColumn(name="signup_user")
+	private UserEntity user;
 
-  public SignedupEntity() {}
+	public SignedupEntity() {
+	}
 
-  public int getId() {
-    return this.id;
-  }
+	public int getId() {
+		return this.id;
+	}
 
-  public void setId(int id) {
-    this.id = id;
-  }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-  public TripEntity getTrip() {
-    return this.trip;
-  }
+	public TripEntity getTrip() {
+		return this.trip;
+	}
 
-  public void setTrip(TripEntity trip) {
-    this.trip = trip;
-  }
+	public void setTrip(TripEntity trip) {
+		this.trip = trip;
+	}
 
-  public UserEntity getUser() {
-    return this.user;
-  }
+	public UserEntity getUser() {
+		return this.user;
+	}
 
-  public void setUser(UserEntity user) {
-    this.user = user;
-  }
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 
 }

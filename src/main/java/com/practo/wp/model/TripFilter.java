@@ -12,7 +12,7 @@ public class TripFilter {
   private Integer[] spaceLeft;
   private String[] destinationName;
   private String[] destinationType;
-  private Integer[] averageCost;
+  private Integer averageCost;
   private Integer[] numOfDays;
   private String startDate;
   private String endDate;
@@ -33,25 +33,32 @@ public class TripFilter {
     this.endDate = endDate;
   }
 
-
-
   @SuppressWarnings("unused")
   private byte isdelete = (byte) 0;
 
-  public Integer[] getAverageCost() {
+  public Integer getAverageCost() {
     return averageCost;
   }
 
   public void setAverageCost(String averageCost) {
-    this.averageCost = convertStringArraytoInt(averageCost);
+    // if (averageCost != null & averageCost != "") {
+    // this.averageCost = convertStringArraytoInt(averageCost);
+    // } else {
+    this.averageCost = Integer.parseInt(averageCost);
   }
+
 
   public Integer[] getNumOfDays() {
     return numOfDays;
   }
 
   public void setNumOfDays(String numOfDays) {
-    this.numOfDays = convertStringArraytoInt(numOfDays);
+    if (numOfDays != null & numOfDays != "") {
+      this.numOfDays = convertStringArraytoInt(numOfDays);
+    } else {
+      this.numOfDays = new Integer[0];
+    }
+
   }
 
 
@@ -60,7 +67,11 @@ public class TripFilter {
   }
 
   public void setDestinationName(String destinationName) {
-    this.destinationName = destinationName.split(",");
+    if (destinationName != null & destinationName != "") {
+      this.destinationName = destinationName.split(",");
+    } else {
+      this.destinationName = new String[0];
+    }
   }
 
   public String[] getDestinationType() {
@@ -68,7 +79,11 @@ public class TripFilter {
   }
 
   public void setDestinationType(String destinationType) {
-    this.destinationType = destinationType.split(",");
+    if (destinationType != null && destinationType != "") {
+      this.destinationType = destinationType.split(",");
+    } else {
+      this.destinationType = new String[0];
+    }
   }
 
 
@@ -77,49 +92,20 @@ public class TripFilter {
   }
 
   public void setSpaceLeft(String spaceLeft) {
-    this.spaceLeft = convertStringArraytoInt(spaceLeft);
+    if (spaceLeft != null && spaceLeft != "") {
+      this.spaceLeft = convertStringArraytoInt(spaceLeft);
+    } else {
+      this.spaceLeft = new Integer[0];
+    }
+
   }
-
-
-
-  /**
-   * .
-   * 
-   * @return ()
-   */
-  // public Predicate toPredicate() {
-  // QTripEntity b1 = QTripEntity.tripEntity;
-  // BooleanExpression predicate = b1.isDeleted.eq((byte) 0);
-  // // BooleanExpression predicate =null;
-  // if (spaceLeft != null) {
-  // System.out.println(spaceLeft);
-  // predicate = predicate.and(b1.spaceLeft.in(spaceLeft));
-  // }
-  // if (destinationName != null) {
-  // System.out.println(destinationName);
-  // predicate = predicate.and(b1.destination.location.in(destinationName));
-  // }
-  // if (destinationType != null) {
-  // System.out.println(destinationType);
-  // predicate = predicate.and(b1.destination.type.in(destinationType));
-  // }
-  // if (numOfDays != null) {
-  // System.out.println(numOfDays);
-  // predicate = predicate.and(b1.numOfDay.in(numOfDays));
-  // }
-  // if (averageCost != null) {
-  // System.out.println(averageCost[0] + " " + averageCost[1]);
-  // predicate = predicate.and(b1.averageCost.between(averageCost[0], averageCost[1]));
-  // }
-  // return predicate;
-  // return null;
-  // }
 
   private Integer[] convertStringArraytoInt(String input) {
     String[] temp = input.split(",");
     Integer[] intarray = new Integer[temp.length];
     for (int i = 0; i < temp.length; i++) {
       intarray[i] = Integer.parseInt(temp[i]);
+      System.out.println(intarray[i]);
     }
     return intarray;
   }
