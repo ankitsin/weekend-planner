@@ -28,7 +28,7 @@ public class DestinationController {
    * Get the destination {@link Destination} details with the given id.
    * 
    * @param id {@link Integer} id passed to get details
-   * @return {@link JSONObject}
+   * @return ()
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public Destination get(@PathVariable("id") Integer id) {

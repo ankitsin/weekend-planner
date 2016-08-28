@@ -1,7 +1,7 @@
 
 <script>
 	function loginchange() {
-		document.getElementById("goglogin").textContent = "Hi "
+		document.getElementById("goglogin").textContent = "Hi ";
 		document.getElementById("goglogout").style.display = "";
 	}
 </script>

@@ -98,7 +98,10 @@
 											<form action="signup" method="post">
 												<input type="hidden" id="desttype" name="tripId"
 													value="${eachTrip.getTripId()}">
-												<div class="item-price-more">
+												<div class="item-price-more"
+													<c:if test="${ empty name}">
+													style="display:none"
+													</c:if>>
 													<input type="submit" class="awe-btn"
 														value="Register For Trip">
 												</div>
@@ -108,19 +111,47 @@
 								</c:forEach>
 							</div>
 
+							<div class="page__pagination" style="display: inline-flex;">
+								<!-- <span class="pagination-prev"><i class="fa fa-caret-left"></i></span> -->
 
-
-							<div class="page__pagination">
-								<span class="pagination-prev"><i class="fa fa-caret-left"></i></span>
-								<span class="current">1</span> <a href="#">2</a> <a href="#">3</a>
+								<%-- <c:set var="total" value="${pageno +1}" /> --%>
+								<%-- <span class="current">${total}</span> --%>
+								<c:forEach var="i" begin="0" end="4">
+									<c:set var="total" value="${pageno +i}" />
+									<form action="./" method="get">
+										<input name="page" value="${total}" type="hidden"> <input
+											class="awe-btn" type="submit"
+											<c:if test = "${i eq pageno}">class="current"</c:if>
+											value="${1+i}">
+									</form>
+								</c:forEach>
+								<%-- <form action="./" method="get">
+									<input name="page" value="${pageno}" type="hidden"> <input
+										class="awe-btn" type="submit" value=${pageno}>
+								</form>
+								<form action="./" method="get">
+									<input name="page" value="1" type="hidden"> <input
+										class="awe-btn" type="submit" value="2">
+								</form>
+								<form action="./" method="get">
+									<input name="page" value="2" type="hidden"> <input
+										class="awe-btn" type="submit" value="3">
+								</form>
+								<form action="./" method="get">
+									<input name="page" value="3" type="hidden"> <input
+										class="awe-btn" type="submit" value="4">
+								</form> --%>
+								<!-- <span class="current">1</span><a href="#">2</a> <a href="#">3</a>
 								<a href="#">4</a> <a href="#" class="pagination-next"><i
-									class="fa fa-caret-right"></i></a>
+									class="fa fa-caret-right"></i></a> -->
 							</div>
+
+
 						</div>
 					</div>
 					<div class="col-md-3 col-md-pull-9">
 						<div class="page-sidebar">
-							<form action="search" method="get">
+							<form action="search" method="get" id="filterform">
 								<div class="sidebar-title">
 									<h2 style=""float:left">Filters</h2>
 									<div class="form-actions">

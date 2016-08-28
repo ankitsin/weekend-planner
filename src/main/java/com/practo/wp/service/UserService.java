@@ -1,9 +1,9 @@
 package com.practo.wp.service;
 
 import com.practo.wp.model.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
-import javax.transaction.Transactional;
 
 public interface UserService {
   /**

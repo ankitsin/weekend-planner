@@ -73,41 +73,46 @@
 		gapi.load('auth2', function() {
 			gapi.auth2.init();
 
-		});
-		function goologin() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2
-					.signIn(
-							{
-								scope : 'https://www.googleapis.com/auth/user.phonenumbers.read'
-							})
-					.then(
-							function(googleUser) {
-
-								var profile = googleUser.getBasicProfile();
-								console
-										.log(googleUser.getAuthResponse().id_token);
-								var profile = googleUser.getBasicProfile();
-								$
-										.post(
-												'/weekend_planner/login',
-												{
-													name : profile.getName(),
-													id : profile.getId(),
-													emailId : profile
-															.getEmail()
-												},
-												function() {
-
-													document
-															.getElementById("goglogin").textContent = "Hi "
-															.concat(profile
-																	.getName());
-													document
-															.getElementById("goglogout").style.display = "";
-												});
-							});
-		}
-		$("#googlelogin").on('click', goologin);
+		})
 	}
+	function goologin() {
+
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2
+				.signIn(
+						{
+							scope : 'https://www.googleapis.com/auth/user.phonenumbers.read'
+						})
+				.then(
+						function(googleUser) {
+
+							var profile = googleUser.getBasicProfile();
+							console.log(googleUser.getAuthResponse().id_token);
+							var profile = googleUser.getBasicProfile();
+							$
+									.post(
+											'login',
+											{
+												name : profile.getName(),
+												id : profile.getId(),
+												emailId : profile.getEmail()
+											},
+											function() {
+
+												document
+														.getElementById("goglogin").textContent = "Hi "
+														.concat(profile
+																.getName());
+												document
+														.getElementById("goglogout").style.display = "";
+
+												/* document
+																									.getElementById("registertrip").style.display = ""; */
+												window.location.reload();
+											});
+						});
+	}
+	$("#googlelogin").on('click', goologin);
+
+	/* } */
 </script>

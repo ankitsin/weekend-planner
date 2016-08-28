@@ -2,12 +2,11 @@ package com.practo.wp.service;
 
 import com.practo.wp.model.Destination;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
 public interface DestinationService {
-  @Transactional
   Iterable<Destination> getall();
 
   @Transactional

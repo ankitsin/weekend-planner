@@ -37,10 +37,12 @@ public class TripController {
     return "redirect:" + "http://http://docs.accommodationfinder.apiary.io/";
   }
 
+
   /**
-   * .
+   * Get trip based on email Id.
    * 
-   * @param pageable ()
+   * @param emailId ()
+   * @param pageable {@link Pageable}
    * @return ()
    */
   @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -55,15 +57,17 @@ public class TripController {
     return dto;
   }
 
+
   /**
    * Get the listing of trips based on filters.
    * 
-   * @param filter a model used for filter
-   * @param pageable ()
+   * @param emailId email id of user
+   * @param filter {@link TripFilter}
+   * @param pageable {@link Pageable}
    * @return ()
    */
   @RequestMapping(value = "/filter", method = RequestMethod.GET)
-  public Iterable<Trip> getOnFlters(String emailId, TripFilter filter, Pageable pageable) {
+  public Iterable<Trip> getOnFilters(String emailId, TripFilter filter, Pageable pageable) {
     System.out.println(filter);
     Iterable<Trip> dto = service.fecthOnFilter(emailId, filter, pageable);
     return dto;
@@ -75,7 +79,9 @@ public class TripController {
    * getting posted user's emailID and sending mail.
    * 
    * @param tripId for getting the user mail Id
+   * @param emailId email id of user
    * @return {@link ResponseEntity}
+   * @throws MessagingException ()
    */
   @RequestMapping(value = "/signup", method = RequestMethod.POST)
   public ResponseEntity<Trip> get1(@RequestBody String tripId, String emailId)
@@ -91,6 +97,7 @@ public class TripController {
    * 
    * @param obj {@link Trip}
    * @return {@link ResponseEntity}
+   * @throws ExceptionMessageThrow message
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Trip> create(@RequestBody Trip obj) throws ExceptionMessageThrow {
@@ -104,6 +111,7 @@ public class TripController {
    * 
    * @param obj id {@link Trip} model
    * @return {@link ResponseEntity}
+   * @throws ExceptionMessageThrow message
    */
   @RequestMapping(method = RequestMethod.PUT)
   public ResponseEntity<Trip> update(@RequestBody Trip obj) throws ExceptionMessageThrow {
@@ -119,6 +127,7 @@ public class TripController {
    * @param id of the Trip
    * @param response ()
    * @return {@link ResponseEntity}
+   * @throws ExceptionMessageThrow message
    */
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response)

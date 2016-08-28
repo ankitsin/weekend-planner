@@ -57,6 +57,7 @@ public class TripListingController {
     model.addAttribute("destFilters", destService.getFilters());
     model.addAttribute("emailId", session.getAttribute("email"));
     model.addAttribute("name", session.getAttribute("name"));
+    model.addAttribute("pageno", pageable.getPageNumber());
     return "index";
   }
 
@@ -78,7 +79,7 @@ public class TripListingController {
         tripService.signUpForTrip(tripId, (String) session.getAttribute("email")));
     // ResponseEntity<Trip> re = new ResponseEntity<Trip>(dto, HttpStatus.CREATED);
     // return re;
-    return "redirect:/";
+    return "email";
   }
 
 
@@ -150,8 +151,24 @@ public class TripListingController {
    * @param destinationName destination name
    * @param averageCost avergae cost of trip
    * @param goingDate date on which trip is happening
+   * @param numOfDay
    * @param session {@link HttpSession}
    * @return trip information posted by user
+   */
+  /**
+   * Function called when a user clicks on post. Creates the post in database and show the trip
+   * posted details on another page
+   * 
+   * @param model {@link Model}
+   * @param tripName name of the trip given by user
+   * @param destinationName destination name
+   * @param averageCost avergae cost of trip
+   * @param goingDate date on which trip is happening
+   * @param spaceLeft space left
+   * @param goingPeople number of people going
+   * @param numOfDay trip for how many days
+   * @param session {@link HttpSession}
+   * @return {@link String}
    */
   @RequestMapping(value = "/post", method = RequestMethod.POST)
 

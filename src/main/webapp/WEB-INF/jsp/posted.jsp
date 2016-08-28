@@ -19,7 +19,7 @@
 		<section class="filter-page">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-9 col-md-push-3">
+					<div class="col-md-19 col-md-push-3">
 						<div class="filter-page__content">
 							<div class="filter-item-wrapper">
 								<div class="trip-item">
@@ -33,13 +33,16 @@
 									</div>
 									<div class="item-body">
 										<div class="item-title">
-											<h2>${postedDetail.getTripName()}</h2>
+											<h2>Your Trip has been Posted</h2>
 										</div>
 										<div class="item-list">
 											<ul>
+												<li>Trip Name: ${postedDetail.getTripName()}</li>
 												<li>Trip Date: ${postedDetail.getGoingDate()}</li>
 												<li>Average Cost: Rs ${postedDetail.getAverageCost()}</li>
 												<li>Number Of Days: ${postedDetail.getNumOfDay()}</li>
+												<li>Number Of People Going Now:
+													${postedDetail.getGoingPeople()}</li>
 												<li>Space Left: ${postedDetail.getSpaceLeft()}</li>
 												<li>Destination Type:
 													${postedDetail.getDestinationType()}</li>
