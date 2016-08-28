@@ -5,7 +5,7 @@ Travis Build Status:
 [![Travis-ci Build Status](https://travis-ci.org/ankitsin/weekend-planner.svg?branch=master)](https://travis-ci.org/ankitsin/weekend-planner)
 
 ###Amazon EC2 running instance url:
-<http://52.27.31.124/weekend_planner/>
+<http://ec2-52-27-31-124.us-west-2.compute.amazonaws.com/wp/>
 
 ### Dependency Required
 Java Version: 1.8.0
