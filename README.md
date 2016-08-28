@@ -19,7 +19,7 @@ Travis Build Status:
 9. Amazon EC2
 
 ### Installation and Running
-1. Install Tomcat using the script provide (https://drive.google.com/open?id=0B8mDgmNLi0iDRVktYTZja1hBZHM)
+1. Install Tomcat using the [script](https://drive.google.com/open?id=0B8mDgmNLi0iDRVktYTZja1hBZHM) provide 
 2. Make changes in hibernate.xml (specify your entity folder) and application.properties(change database name, MySQL username and password)
 4. Create the database schema in local. Please download the sql file and import it into your database. [Link](https://drive.google.com/file/d/0B8mDgmNLi0iDVlptZ1poMzRyNkU/view?usp=sharing)
 5. Download and run the [script](https://drive.google.com/open?id=0B8mDgmNLi0iDRExNMDVqWEhmLU0). This will create a war file tomcat folder and run it on the port:8080 (localhost:8080/wp)
@@ -35,15 +35,15 @@ Travis Build Status:
 1. Username: ankitsin37@gmail.com
 2. Password: qwerty123
 
-[Sentry]
+[Sentry Link]
 (https://app.getsentry.com/practo-sp/weekend_planner/dashboard/)
 
 ### Java Doc
-[Java Doc]
+[Java Doc Link]
 (http://ec2-52-27-31-124.us-west-2.compute.amazonaws.com/wp/doc/index.html)
 
 ### Schema Design
-[My Schema Design]
+[My Schema Design Link]
 (https://drive.google.com/open?id=0B8mDgmNLi0iDRTJHVnppUXdlN1U)
 
 ### Apiary Documentation Link
