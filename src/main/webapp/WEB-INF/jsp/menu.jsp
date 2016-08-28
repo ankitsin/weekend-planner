@@ -1,10 +1,10 @@
-
 <script>
 	function loginchange() {
 		document.getElementById("goglogin").textContent = "Hi ";
 		document.getElementById("goglogout").style.display = "";
 	}
 </script>
+<div class="preloader"></div>
 <header id="header-page">
 	<div class="header-page__inner">
 		<div class="container">
@@ -15,7 +15,10 @@
 			<nav class="navigation awe-navigation" data-responsive="1200">
 				<ul class="menu-list">
 					<li class="menu-item-has-children"><a href="./">Home</a></li>
-					<li class="menu-item-has-children"><a href="postpage">Post</a></li>
+					<li class="menu-item-has-children"><a href="postpage"
+						<c:if test="${ empty name}">
+                                                    style="display:none"
+                                                    </c:if>>Post</a></li>
 					<li class="menu-item-has-children"><a href="signout"
 						onclick="signOut()"><span id="goglogout" style="display: none">SignOut</span></a></li>
 					<li class="menu-item-has-children"><a id="googlelogin"> <span

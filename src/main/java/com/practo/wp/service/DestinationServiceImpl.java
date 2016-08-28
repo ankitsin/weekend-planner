@@ -84,6 +84,45 @@ public class DestinationServiceImpl implements DestinationService {
     return dto;
 
   }
+
+  @Override
+  public void createDestination(Destination destination) {
+    DestinationEntity entity = new DestinationEntity();
+    entity = destination.convert();
+    destinationDao.createDestination(entity);
+  }
+
+  @Override
+  public void updateDestination(Destination destination) {
+    DestinationEntity entity = new DestinationEntity();
+    entity = destination.convert();
+    destinationDao.updateDestination(entity);
+
+  }
+
+  /**
+   * .
+   * 
+   * @param name destination name
+   * @return ()
+   */
+  public Destination getByName(String name) {
+    Iterable<DestinationEntity> entity = destinationDao.findDestinationByName(name);
+    Destination dto = null;
+    for (DestinationEntity dest : entity) {
+
+      try {
+        dto = Destination.class.newInstance();
+        dto.setData(dest);
+
+      } catch (InstantiationException | IllegalAccessException exc) {
+        // TODO Auto-generated catch block
+        exc.printStackTrace();
+      }
+    }
+    return dto;
+
+  }
 }
 
 

@@ -142,8 +142,10 @@ public class TripServiceImpl implements TripService {
     entity.setCreatedAt(trip.getCreatedAt());
     entity.setModifiedAt(date);
     tripDao.updateTrip(entity);
-    model.fetchTrip(entity);
-    return model;
+    Trip model1 = new Trip();
+    model1.fetchTrip(entity);
+    // model.fetchTrip(entity);
+    return model1;
   }
 
   @Override

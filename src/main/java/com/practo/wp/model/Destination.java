@@ -63,9 +63,9 @@ public class Destination {
   public DestinationEntity convert() {
     DestinationEntity entity = new DestinationEntity();
     entity.setDestinationId(getDestinationId());
-    entity.setLocation(entity.getLocation());
-    entity.setType(entity.getType());
-    entity.setDistance(entity.getDistance());
+    entity.setLocation(getLocation());
+    entity.setType(getType());
+    entity.setDistance(getDistance());
     return entity;
 
   }

@@ -2,20 +2,19 @@ package com.practo.wp.service;
 
 import com.practo.wp.model.Destination;
 
-import org.springframework.transaction.annotation.Transactional;
-
-
-
 public interface DestinationService {
   Iterable<Destination> getall();
 
-  @Transactional
   Iterable<String> getFilters();
 
-  @Transactional
+  Destination getByName(String name);
+
   Destination getById(Integer id);
 
-  @Transactional
   Destination getId(String destination);
+
+  void createDestination(Destination destination);
+
+  void updateDestination(Destination destination);
 
 }

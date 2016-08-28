@@ -17,7 +17,9 @@ public interface UserService {
   User get(Integer id) throws MessagingException;
 
   @Transactional
-  User getId(String emailId);
+  User getByEmailId(String emailId);
 
   User createUser(User user);
+
+  User upadteUser(User user);
 }

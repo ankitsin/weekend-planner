@@ -15,7 +15,7 @@ public interface DestinationDao {
 
   void createDestination(DestinationEntity obj);
 
-  void updatDestination(DestinationEntity obj);
+  void updateDestination(DestinationEntity obj);
 
   Iterable<DestinationEntity> fetchIdByName(String[] name);
 

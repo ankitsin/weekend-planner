@@ -11,13 +11,13 @@ public interface TripDao {
 
   TripEntity findTrip(int tripId);
 
-  Iterable<TripEntity> getAllTrip();
+  // Iterable<TripEntity> getAllTrip();
 
   void createTrip(TripEntity obj);
 
   void updateTrip(TripEntity obj);
 
-  void deleteTrip(int tripId);
+  // void deleteTrip(int tripId);
 
   Iterable<TripEntity> findTripAndNotDeleted(String email, Pageable pageable);
 

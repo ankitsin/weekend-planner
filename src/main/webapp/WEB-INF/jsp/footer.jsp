@@ -113,6 +113,6 @@
 						});
 	}
 	$("#googlelogin").on('click', goologin);
-
+	$("#plgooglelogin").on('click', goologin);
 	/* } */
 </script>

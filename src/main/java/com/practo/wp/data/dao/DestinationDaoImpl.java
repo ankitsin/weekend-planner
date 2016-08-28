@@ -32,7 +32,7 @@ public class DestinationDaoImpl implements DestinationDao {
   }
 
   @Transactional
-  public void updatDestination(DestinationEntity obj) {
+  public void updateDestination(DestinationEntity obj) {
     template.update(obj);
   }
 

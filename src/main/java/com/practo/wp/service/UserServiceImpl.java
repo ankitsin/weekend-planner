@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getId(String emailId) {
+  public User getByEmailId(String emailId) {
     UserEntity entity = userDao.findUserByEmail(emailId);
     User dto;
     try {
@@ -54,6 +54,18 @@ public class UserServiceImpl implements UserService {
     UserEntity entity = user.convert();
     userDao.createUser(entity);
     return null;
+  }
+
+  /**
+   * This is to update the user enitity.
+   * 
+   * @param user {@link User} model
+   * @return null
+   */
+  public User upadteUser(User user) {
+    UserEntity entity = user.convert();
+    userDao.updatUser(entity);
+    return user;
   }
 
 }

@@ -1,8 +1,8 @@
 <%@include file="header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <body>
 	<div id="page-wrap">
-		<div class="preloader"></div>
 		<%@include file="menu.jsp"%>
 		<c:if test="${not empty name}">
 
@@ -78,8 +78,11 @@
 												<ul>
 													<li>Posted By: ${eachTrip.getUserName()}
 														(${eachTrip.getUserEmailId()})</li>
-													<li>Trip Date: ${eachTrip.getGoingDate()}</li>
-													<li>Average Cost: Rs ${eachTrip.getAverageCost()}</li>
+													<%-- 														<fmt:formatDate value="${eachTrip.getGoingDate()}" pattern="yy-MMM-dd"/>
+ --%>
+													<li>Trip Date: <fmt:formatDate
+															value="${eachTrip.getGoingDate()}" pattern="dd-MMM-yyyy" /></li>
+
 													<li>Number Of Days: ${eachTrip.getNumOfDay()}</li>
 													<li>Space Left: ${eachTrip.getSpaceLeft()}</li>
 													<li>Going People: ${eachTrip.getGoingPeople()}</li>
@@ -95,17 +98,33 @@
 											</div> --%>
 										</div>
 										<div>
-											<form action="signup" method="post">
-												<input type="hidden" id="desttype" name="tripId"
-													value="${eachTrip.getTripId()}">
-												<div class="item-price-more"
-													<c:if test="${ empty name}">
-													style="display:none"
-													</c:if>>
-													<input type="submit" class="awe-btn"
-														value="Register For Trip">
+											<div class="item-price-more">
+												<div class="price">
+													Average Cost:
+													<ins>
+														<span class="amount">Rs
+															${eachTrip.getAverageCost()}</span>
+													</ins>
+													<form action="signup" method="post">
+														<input type="hidden" id="desttype" name="tripId"
+															value="${eachTrip.getTripId()}">
+														<div
+															<c:if test="${ empty name}">
+                                                    style="display:none"
+                                                    </c:if>>
+															<input type="submit" class="awe-btn"
+																value="Register For Trip">
+														</div>
+														<div
+															<c:if test="${not empty name}">
+                                                            style="display:none"
+                                                    </c:if>>
+															<a class="awe-btn" id="plgooglelogin"
+																style="text-transform: capitalize">Login to Register</a>
+														</div>
+													</form>
 												</div>
-											</form>
+											</div>
 										</div>
 									</div>
 								</c:forEach>

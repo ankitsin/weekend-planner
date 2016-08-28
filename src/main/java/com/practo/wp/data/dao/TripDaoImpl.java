@@ -34,10 +34,10 @@ public class TripDaoImpl implements TripDao {
     return template.load(TripEntity.class, tripId);
   }
 
-  @Transactional
-  public Iterable<TripEntity> getAllTrip() {
-    return template.loadAll(TripEntity.class);
-  }
+  // @Transactional
+  // public Iterable<TripEntity> getAllTrip() {
+  // return template.loadAll(TripEntity.class);
+  // }
 
   @Transactional
   public void createTrip(TripEntity obj) {
@@ -50,11 +50,11 @@ public class TripDaoImpl implements TripDao {
     template.update(obj);
   }
 
-  @Transactional
-  public void deleteTrip(int tripId) {
-    TripEntity obj = template.load(TripEntity.class, tripId);
-    template.delete(obj);
-  }
+  // @Transactional
+  // public void deleteTrip(int tripId) {
+  // TripEntity obj = template.load(TripEntity.class, tripId);
+  // template.delete(obj);
+  // }
 
   /**
    * Find the trips which have been not deleted and going date is greater than todays date and if
@@ -122,7 +122,12 @@ public class TripDaoImpl implements TripDao {
       try {
         Date start = df.parse(filter.getStartDate());
         Date end = df.parse(filter.getEndDate());
-        criteria = criteria.add(Restrictions.between("goingDate", start, end));
+        if (start.after(end)) {
+          criteria = criteria.add(Restrictions.between("goingDate", start, end));
+        } else {
+          criteria = criteria.add(Restrictions.between("goingDate", end, start));
+        }
+
       } catch (ParseException exc) {
         exc.printStackTrace();
       }

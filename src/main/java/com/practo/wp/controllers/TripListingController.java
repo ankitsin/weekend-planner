@@ -101,7 +101,7 @@ public class TripListingController {
     session.setAttribute("email", emailId);
     System.out.println(name + "$$$$$$$$$$$$$$$");
     User user = new User();
-    user = userService.getId(emailId);
+    user = userService.getByEmailId(emailId);
     if (user.getEmailId() == null) {
       user.setEmailId(emailId);
       user.setName(name);
@@ -151,13 +151,13 @@ public class TripListingController {
    * @param destinationName destination name
    * @param averageCost avergae cost of trip
    * @param goingDate date on which trip is happening
-   * @param numOfDay
+   * @param numOfDay ()
    * @param session {@link HttpSession}
    * @return trip information posted by user
    */
   /**
    * Function called when a user clicks on post. Creates the post in database and show the trip
-   * posted details on another page
+   * posted details on another page.
    * 
    * @param model {@link Model}
    * @param tripName name of the trip given by user
@@ -197,7 +197,7 @@ public class TripListingController {
 
     String emailId = (String) session.getAttribute("email");
     System.out.println(emailId);
-    User user1 = userService.getId(emailId);
+    User user1 = userService.getByEmailId(emailId);
     System.out.println(user1.getUserId());
     object.setPostedUserId(user1.getUserId());
     Destination dest = destService.getId(destinationName);
