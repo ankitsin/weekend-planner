@@ -27,12 +27,15 @@ Travis Build Status:
 ### New Relic
 1. UserName: ankitsin37@gmail.com
 2. Password: qwerty123
+
 [New Relic Link]
 (https://rpm.newrelic.com/accounts/1403528)
 
 ### Sentry
 1. Username: ankitsin37@gmail.com
 2. Password: qwerty123
+
+[Sentry]
 (https://app.getsentry.com/practo-sp/weekend_planner/dashboard/)
 
 ### Java Doc
