@@ -1,6 +1,5 @@
 package com.practo.wp.data.dao;
 
-import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -24,6 +23,7 @@ public class UserDaoImpl implements UserDao {
 
   @Transactional
   public void createUser(UserEntity obj) {
+    System.out.println("in tthe create");
     template.save(obj);
   }
 
@@ -32,6 +32,7 @@ public class UserDaoImpl implements UserDao {
     template.update(obj);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public UserEntity findUserByEmail(String emailId) {
     DetachedCriteria criteria = DetachedCriteria.forClass(UserEntity.class);

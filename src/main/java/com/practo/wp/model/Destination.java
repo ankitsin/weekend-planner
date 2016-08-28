@@ -57,6 +57,9 @@ public class Destination {
     }
   }
 
+  /**
+   * . @return()
+   */
   public DestinationEntity convert() {
     DestinationEntity entity = new DestinationEntity();
     entity.setDestinationId(getDestinationId());

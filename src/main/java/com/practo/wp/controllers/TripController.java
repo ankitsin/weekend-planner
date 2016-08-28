@@ -20,7 +20,8 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Controller for listing, delete edit trips.
+ * Controller for getting listing of all the trips, listig based on user, deletion and editing of
+ * the trip by user who has posted it.
  * 
  * @author ankit
  *
@@ -49,20 +50,20 @@ public class TripController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public Trip get2(@PathVariable("id") int id) {
+  public Trip getOnId(@PathVariable("id") int id) {
     Trip dto = service.fetchOne(id);
     return dto;
   }
 
   /**
-   * .
+   * Get the listing of trips based on filters.
    * 
-   * @param filter ()
+   * @param filter a model used for filter
    * @param pageable ()
    * @return ()
    */
   @RequestMapping(value = "/filter", method = RequestMethod.GET)
-  public Iterable<Trip> get2(String emailId, TripFilter filter, Pageable pageable) {
+  public Iterable<Trip> getOnFlters(String emailId, TripFilter filter, Pageable pageable) {
     System.out.println(filter);
     Iterable<Trip> dto = service.fecthOnFilter(emailId, filter, pageable);
     return dto;
@@ -70,11 +71,11 @@ public class TripController {
 
 
   /**
-   * This is function for getting trip information for specific id.
+   * This is function for signing up for the trip. The finction calls {@link TripService} for
+   * getting posted user's emailID and sending mail.
    * 
-   * @param id ()
-   * @return ()
-   * 
+   * @param tripId for getting the user mail Id
+   * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/signup", method = RequestMethod.POST)
   public ResponseEntity<Trip> get1(@RequestBody String tripId, String emailId)
@@ -86,10 +87,10 @@ public class TripController {
   }
 
   /**
-   * .
+   * Create a trip object.
    * 
-   * @param obj ()
-   * @return ()
+   * @param obj {@link Trip}
+   * @return {@link ResponseEntity}
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Trip> create(@RequestBody Trip obj) throws ExceptionMessageThrow {
@@ -99,10 +100,10 @@ public class TripController {
   }
 
   /**
-   * .
+   * For upadting the trip details using put method.
    * 
-   * @param obj ()
-   * @return ()
+   * @param obj id {@link Trip} model
+   * @return {@link ResponseEntity}
    */
   @RequestMapping(method = RequestMethod.PUT)
   public ResponseEntity<Trip> update(@RequestBody Trip obj) throws ExceptionMessageThrow {
@@ -112,11 +113,12 @@ public class TripController {
   }
 
   /**
-   * .
+   * Deletes(soft) the trip detail by making isdelete column value true and changing modified date
+   * to current time.
    * 
-   * @param id ()
+   * @param id of the Trip
    * @param response ()
-   * @return ()
+   * @return {@link ResponseEntity}
    */
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response)

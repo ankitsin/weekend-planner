@@ -1,12 +1,5 @@
 package com.practo.wp.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.practo.wp.data.entity.DestinationEntity;
 import com.practo.wp.data.entity.SignedupEntity;
 import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
@@ -40,6 +33,11 @@ public class Signedup {
     this.user = user;
   }
 
+  /**
+   * Convert entity to model.
+   * 
+   * @param entity {@link TripEntity}
+   */
   public void setData(SignedupEntity entity) {
     if (entity != null) {
       setId(entity.getId());

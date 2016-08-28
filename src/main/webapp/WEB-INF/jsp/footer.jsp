@@ -94,7 +94,8 @@
 												{
 													name : profile.getName(),
 													id : profile.getId(),
-													email : profile.getEmail()
+													emailId : profile
+															.getEmail()
 												},
 												function() {
 

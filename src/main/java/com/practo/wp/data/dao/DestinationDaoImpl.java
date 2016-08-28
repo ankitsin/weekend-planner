@@ -1,7 +1,7 @@
 package com.practo.wp.data.dao;
 
 import com.practo.wp.data.entity.DestinationEntity;
-import com.practo.wp.data.entity.TripEntity;
+import com.practo.wp.model.Destination;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -9,8 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -39,6 +37,13 @@ public class DestinationDaoImpl implements DestinationDao {
     template.update(obj);
   }
 
+  /**
+   * Get the destination details with given name of destination.
+   * 
+   * @param name name of the destination
+   * @return {@link Destination} model
+   */
+  @SuppressWarnings("unchecked")
   @Transactional
   public Iterable<DestinationEntity> fetchIdByName(String[] name) {
     // TODO Auto-generated method stub
@@ -48,6 +53,7 @@ public class DestinationDaoImpl implements DestinationDao {
     // return null;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Iterable<DestinationEntity> fetchIdByType(String[] type) {
     // TODO Auto-generated method stub
@@ -56,6 +62,7 @@ public class DestinationDaoImpl implements DestinationDao {
     return (Iterable<DestinationEntity>) template.findByCriteria(criteria);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Iterable<String> getFilters() {
     DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);
@@ -65,6 +72,7 @@ public class DestinationDaoImpl implements DestinationDao {
     return (Iterable<String>) template.findByCriteria(criteria);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Iterable<DestinationEntity> findDestinationByName(String name) {
     DetachedCriteria criteria = DetachedCriteria.forClass(DestinationEntity.class);

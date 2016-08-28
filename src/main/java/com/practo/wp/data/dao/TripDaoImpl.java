@@ -5,14 +5,8 @@ import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
 import com.practo.wp.model.TripFilter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +14,10 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 @Repository
@@ -59,9 +57,12 @@ public class TripDaoImpl implements TripDao {
   }
 
   /**
-   * .
+   * Find the trips which have been not deleted and going date is greater than todays date and if
+   * user logged in then don't show trips posted by him.
    * 
-   * @return ()
+   * @param email emailId of logged in user
+   * @param pageable {@link Pageable}
+   * @return {@link TripEntity}
    */
   @SuppressWarnings("unchecked")
   @Transactional
@@ -78,23 +79,21 @@ public class TripDaoImpl implements TripDao {
     try {
       Date today = dateFormat.parse(date);
       criteria = criteria.add(Restrictions.ge("goingDate", today)).addOrder(Order.asc("goingDate"));
-    } catch (ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    } catch (ParseException exc) {
+      exc.printStackTrace();
     }
     System.out.println(pageable.getOffset());
     return (Iterable<TripEntity>) template.findByCriteria(criteria, pageable.getOffset(),
         pageable.getPageSize());
-    // return null;
 
   }
 
   /**
-   * .
+   * Find trips based on the filter provided.
    * 
-   * @param filter ()
-   * @param pageable ()
-   * @return ()
+   * @param filter {@link TripEntity}
+   * @param pageable {@link Pageable}
+   * @return {@link TripEntity}
    */
   @SuppressWarnings("unchecked")
   @Transactional
@@ -124,9 +123,8 @@ public class TripDaoImpl implements TripDao {
         Date start = df.parse(filter.getStartDate());
         Date end = df.parse(filter.getEndDate());
         criteria = criteria.add(Restrictions.between("goingDate", start, end));
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      } catch (ParseException exc) {
+        exc.printStackTrace();
       }
 
     }
@@ -139,6 +137,7 @@ public class TripDaoImpl implements TripDao {
     return (Iterable<TripEntity>) template.findByCriteria(criteria);
   }
 
+  @SuppressWarnings("unused")
   @Transactional
   private Integer[] fetchDestinationIdByNameOrType(TripFilter filter, String flag) {
     Iterable<DestinationEntity> entity = null;
@@ -150,8 +149,7 @@ public class TripDaoImpl implements TripDao {
       entity = destinationDao.fetchIdByType(type);
     }
     int size = 0;
-    for (@SuppressWarnings("unused")
-    DestinationEntity temp : entity) {
+    for (DestinationEntity temp : entity) {
       size++;
     }
 
@@ -164,20 +162,4 @@ public class TripDaoImpl implements TripDao {
     }
     return id;
   }
-  //
-  // @Transactional
-  // Iterable<TripEntity> findByGoingPeopleAndSpaceLeft(int goingdate, int space);
-  //
-  // @Transactional
-  // Iterable<TripEntity> findByUserUserIdAndIsDeleted(int id, byte isDel);
-  //
-  // @Transactional
-  // Iterable<TripEntity> findByTripName(String name);
-
-  // @Override
-  // public String getPages() {
-  // DetachedCriteria criteria = DetachedCriteria.forClass(TripEntity.class);
-  // criteria = criteria.setProjection(Projections.rowCount());
-  // return template.findByCriteria(criteria);
-  // }
 }

@@ -11,9 +11,10 @@ import com.practo.wp.data.entity.UserEntity;
 import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.Trip;
 import com.practo.wp.model.TripFilter;
-import com.practo.wp.model.User;
-import com.practo.wp.utility.mailSendUtility;
+import com.practo.wp.utility.MailSenderUtility;
 
+import org.aspectj.weaver.Iterators.Getter;
+import org.hibernate.property.access.spi.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,13 +39,14 @@ public class TripServiceImpl implements TripService {
   @Autowired
   private SignedupDao signedupDao;
   @Autowired
-  private mailSendUtility smtpMailSender;
+  private MailSenderUtility smtpMailSender;
 
   /**
-   * .
+   * This function fetches all the trip posted by a user based on his emailId. and return iterable
+   * {@link Iterable} Trip {@link Trip} model.
    * 
-   * @param pageable ()
-   * @return ()
+   * @param email in string form.
+   * @return iterable Trip
    */
   public Iterable<Trip> fetchAll(String email, Pageable pageable) {
     Iterable<TripEntity> entity = tripDao.findTripAndNotDeleted(email, pageable);
@@ -61,19 +63,14 @@ public class TripServiceImpl implements TripService {
       }
     }
     return trip;
-    // return null;
   }
 
   @Override
   public Trip signUpForTrip(String tripId, String emailId) throws MessagingException {
-    // String[] temp = tripIdemailId.split(",");
-    // String tripId = temp[0];
-    // String emailId = temp[1];
 
     TripEntity entity = tripDao.findTrip(Integer.parseInt(tripId));
     Trip model = new Trip();
     model.fetchTrip(entity);
-    // UserEntity postedUser = entity.getUser();
     UserEntity signedUpUser = userDao.findUserByEmail(emailId);
     Iterable<SignedupEntity> var =
         signedupDao.search(Integer.parseInt(tripId), signedUpUser.getUserId());
@@ -84,7 +81,6 @@ public class TripServiceImpl implements TripService {
       entity.setGoingPeople(entity.getGoingPeople() + 1);
       entity.setSpaceLeft(entity.getSpaceLeft() - 1);
       tripDao.updateTrip(entity);
-      // model.fetchTrip(newEntity);
 
       SignedupEntity signEntity = new SignedupEntity();
       signEntity.setTrip(tripDao.findTrip(Integer.parseInt(tripId)));
@@ -107,10 +103,7 @@ public class TripServiceImpl implements TripService {
       return model;
     }
     return null;
-
   }
-
-
 
   @Override
   public Trip create(Trip model) throws ExceptionMessageThrow {
@@ -133,10 +126,6 @@ public class TripServiceImpl implements TripService {
     System.out.println(date + " Date destination name");
     tripDao.createTrip(entity);
     System.out.println(date + " Date destination name");
-    // SignedupEntity signEntity = new SignedupEntity();
-    // signEntity.setTrip(tripDao.findTrip(Integer.parseInt(tripId)));
-    // signEntity.setUser(signedUpUser);
-    // signedupDao.create(signEntity);
     model.fetchTrip(entity);
     return model;
   }
@@ -155,10 +144,6 @@ public class TripServiceImpl implements TripService {
     tripDao.updateTrip(entity);
     model.fetchTrip(entity);
     return model;
-    // TripEntity entity = model.getEntity();
-    // entity = tripDao.save(entity);
-    // model.mergeEntity(entity);
-    // return null;
   }
 
   @Override
@@ -172,10 +157,12 @@ public class TripServiceImpl implements TripService {
   }
 
   /**
-   * .
+   * Fetches trips based on filter. Used both for search and filter also; Tripfilter
+   * {@link TripFilter} model is made which has getter {@link Getter} and setter {@link Setter} for
+   * all filter values
    * 
-   * @param filter ()
-   * @return ()
+   * @param filter {@link Trip}
+   * @return {@link Iterable} {@link Trip}
    */
   public Iterable<Trip> fecthOnFilter(String email, TripFilter filter, Pageable pageable) {
     Iterable<TripEntity> entity = tripDao.findTripOnFilter(email, filter, pageable);
@@ -208,12 +195,5 @@ public class TripServiceImpl implements TripService {
     }
     return dto;
   }
-
-  // @Override
-  // public String getTotalPage() {
-  // String page = tripDao.getPages();
-  // return null;
-  // }
-
 
 }

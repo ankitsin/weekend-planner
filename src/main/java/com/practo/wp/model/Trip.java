@@ -101,7 +101,7 @@ public class Trip {
     return this.user.getName();
   }
 
-  public String getUserEmailID() {
+  public String getUserEmailId() {
     return this.user.getEmailId();
   }
 
@@ -133,18 +133,10 @@ public class Trip {
     this.destination = destination;
   }
 
-  // public DestinationEntity getDestination() {
-  // return this.destination;
-  // }
-
   public void setPostedUserId(int userId) {
-    System.out.println(userId + "#################");
     this.postedUserId = userId;
   }
 
-  /**
-   * . @return()
-   */
   public int posteduserId() {
     return this.postedUserId;
   }
@@ -158,9 +150,9 @@ public class Trip {
   }
 
   /**
-   * .
+   * Convert entity to model .
    * 
-   * @param entity()
+   * @param entity {@link TripEntity}
    */
   public void fetchTrip(TripEntity entity) {
     if (entity != null) {
@@ -178,33 +170,32 @@ public class Trip {
       // System.out.println(entity.getGoingDate());
       // System.out.println(entity.getGoingPeople());
       // System.out.println(entity.getUser().getName());
-
     }
   }
 
   /**
-   * .
+   * Convert model to entity.
    * 
-   * @return()
+   * @return {@link TripEntity}
    */
   public TripEntity post() {
-    TripEntity et = new TripEntity();
+    TripEntity entity = new TripEntity();
     // System.out.println(PostedUserId());
     // System.out.println(getTripName());
     // System.out.println(getAverageCost());
     // System.out.println(getGoingDate());
     // System.out.println(getGoingPeople());
     // System.out.println(getNumOfDay());
-    et.setTripName(getTripName());
-    et.setAverageCost(getAverageCost());
-    et.setGoingDate(getGoingDate());
-    et.setGoingPeople(getGoingPeople());
-    et.setNumOfDay(getNumOfDay());
-    et.setSpaceLeft(getSpaceLeft());
+    entity.setTripName(getTripName());
+    entity.setAverageCost(getAverageCost());
+    entity.setGoingDate(getGoingDate());
+    entity.setGoingPeople(getGoingPeople());
+    entity.setNumOfDay(getNumOfDay());
+    entity.setSpaceLeft(getSpaceLeft());
     if (new Integer(getTripId()) != null) {
-      et.setTripId(getTripId());
+      entity.setTripId(getTripId());
     }
-    return et;
+    return entity;
 
   }
 

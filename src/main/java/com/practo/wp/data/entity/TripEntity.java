@@ -1,9 +1,21 @@
 package com.practo.wp.data.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -155,6 +167,12 @@ public class TripEntity implements Serializable {
     this.signedups = signedups;
   }
 
+  /**
+   * .
+   * 
+   * @param signedup ()
+   * @return ()
+   */
   public SignedupEntity addSignedup(SignedupEntity signedup) {
     getSignedups().add(signedup);
     signedup.setTrip(this);
@@ -162,6 +180,12 @@ public class TripEntity implements Serializable {
     return signedup;
   }
 
+  /**
+   * .
+   * 
+   * @param signedup ()
+   * @return ()
+   */
   public SignedupEntity removeSignedup(SignedupEntity signedup) {
     getSignedups().remove(signedup);
     signedup.setTrip(null);

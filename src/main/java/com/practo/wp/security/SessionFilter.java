@@ -1,5 +1,7 @@
 package com.practo.wp.security;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.stereotype.Component;
+
 
 @Component
 public class SessionFilter implements Filter {

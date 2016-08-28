@@ -77,7 +77,7 @@
 											<div class="item-list">
 												<ul>
 													<li>Posted By: ${eachTrip.getUserName()}
-														(${eachTrip.getUserEmailID()})</li>
+														(${eachTrip.getUserEmailId()})</li>
 													<li>Trip Date: ${eachTrip.getGoingDate()}</li>
 													<li>Average Cost: Rs ${eachTrip.getAverageCost()}</li>
 													<li>Number Of Days: ${eachTrip.getNumOfDay()}</li>

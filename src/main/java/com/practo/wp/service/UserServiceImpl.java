@@ -2,10 +2,7 @@ package com.practo.wp.service;
 
 import com.practo.wp.data.dao.UserDao;
 import com.practo.wp.data.entity.UserEntity;
-import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.User;
-import javax.mail.MessagingException;
-import com.practo.wp.utility.mailSendUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,27 +14,19 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private UserDao userDao;
-  // private CrudRepository<UserEntity, Integer> repository;
-  //
-  // public CrudRepository<UserEntity, Integer> getRepository() {
-  // return repository;
-  // }
-  @Autowired
-  private mailSendUtility smtpMailSender;
 
   /**
-   * .
+   * User service for getting user information based on id, email id and creating a new user when a
+   * user login for the first time.
    * 
-   * @param id ()
-   * @return ()
+   * @param id user registered id
+   * @return {@link User}
    */
-  public User get(Integer id) throws MessagingException {
+  public User get(Integer id) {
     UserEntity entity = userDao.findUser(id);
-    System.out.println("#################");
     try {
       User dto = User.class.newInstance();
       dto.setData(entity);
-      // smtpMailSender.send(dto.getEmailId(), "Test mail from Spring", "Howdy");
       return dto;
     } catch (InstantiationException | IllegalAccessException exc) {
       System.out.printf("Exception while DAO get for ID :" + id, exc);
@@ -48,18 +37,23 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getId(String emailId) {
     UserEntity entity = userDao.findUserByEmail(emailId);
-    System.out.println("#################");
     User dto;
     try {
       dto = User.class.newInstance();
       dto.setData(entity);
       return dto;
     } catch (InstantiationException | IllegalAccessException exc) {
-      // TODO Auto-generated catch block
       exc.printStackTrace();
       return null;
     }
 
+  }
+
+  @Override
+  public User createUser(User user) {
+    UserEntity entity = user.convert();
+    userDao.createUser(entity);
+    return null;
   }
 
 }

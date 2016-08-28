@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Destination.
+ * Destination serivce for getting destinaton detail based on id, name or get all and get all the
+ * type of the destination .
  * 
  * @author ankit
  *
@@ -24,6 +25,7 @@ import java.util.List;
 @Service
 @Transactional
 public class DestinationServiceImpl implements DestinationService {
+  @SuppressWarnings("unused")
   private static final Logger logger = LogManager.getLogger(Application.class);
   @Autowired
   private DestinationDao destinationDao;
@@ -74,9 +76,9 @@ public class DestinationServiceImpl implements DestinationService {
         dto = Destination.class.newInstance();
         dto.setData(dest);
 
-      } catch (InstantiationException | IllegalAccessException e) {
+      } catch (InstantiationException | IllegalAccessException exc) {
         // TODO Auto-generated catch block
-        e.printStackTrace();
+        exc.printStackTrace();
       }
     }
     return dto;

@@ -2,6 +2,7 @@ package com.practo.wp.controllers;
 
 import com.practo.wp.model.Destination;
 import com.practo.wp.service.DestinationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +25,10 @@ public class DestinationController {
   }
 
   /**
-   * get the destination details with the given id.
+   * Get the destination {@link Destination} details with the given id.
    * 
-   * @param id (id) id passed to get details
-   * @return (json object)
+   * @param id {@link Integer} id passed to get details
+   * @return {@link JSONObject}
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public Destination get(@PathVariable("id") Integer id) {

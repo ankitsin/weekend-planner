@@ -7,7 +7,6 @@ import com.practo.wp.model.TripFilter;
 import org.springframework.data.domain.Pageable;
 
 import javax.mail.MessagingException;
-import javax.transaction.Transactional;
 
 
 

@@ -1,6 +1,5 @@
 package com.practo.wp.service;
 
-import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.User;
 
 import javax.mail.MessagingException;
@@ -8,7 +7,8 @@ import javax.transaction.Transactional;
 
 public interface UserService {
   /**
-   * .
+   * User service for getting user information based on id, email id and creating a new user when a
+   * user login for the first time.
    * 
    * @param id ()
    * @return ()
@@ -18,4 +18,6 @@ public interface UserService {
 
   @Transactional
   User getId(String emailId);
+
+  User createUser(User user);
 }

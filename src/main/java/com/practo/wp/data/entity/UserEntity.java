@@ -1,8 +1,16 @@
 package com.practo.wp.data.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -88,6 +96,12 @@ public class UserEntity implements Serializable {
     this.signedups = signedups;
   }
 
+  /**
+   * .
+   * 
+   * @param signedup ()
+   * @return ()
+   */
   public SignedupEntity addSignedup(SignedupEntity signedup) {
     getSignedups().add(signedup);
     signedup.setUser(this);
@@ -95,6 +109,12 @@ public class UserEntity implements Serializable {
     return signedup;
   }
 
+  /**
+   * .
+   * 
+   * @param signedup ()
+   * @return ()
+   */
   public SignedupEntity removeSignedup(SignedupEntity signedup) {
     getSignedups().remove(signedup);
     signedup.setUser(null);
@@ -110,6 +130,12 @@ public class UserEntity implements Serializable {
     this.trips = trips;
   }
 
+  /**
+   * .
+   * 
+   * @param trip ()
+   * @return ()
+   */
   public TripEntity addTrip(TripEntity trip) {
     getTrips().add(trip);
     trip.setUser(this);
@@ -117,6 +143,12 @@ public class UserEntity implements Serializable {
     return trip;
   }
 
+  /**
+   * .
+   * 
+   * @param trip ()
+   * @return ()
+   */
   public TripEntity removeTrip(TripEntity trip) {
     getTrips().remove(trip);
     trip.setUser(null);

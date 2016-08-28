@@ -1,6 +1,5 @@
 package com.practo.wp.controllers;
 
-import com.practo.wp.exception.ExceptionMessageThrow;
 import com.practo.wp.model.User;
 import com.practo.wp.service.UserService;
 

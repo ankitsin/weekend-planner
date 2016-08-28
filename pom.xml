@@ -90,11 +90,7 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 				</plugin>
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.7.8-SNAPSHOT</version>
-				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
@@ -117,8 +113,13 @@
 					</executions>
 				</plugin>
 			</plugins>
-
 		</pluginManagement>
-	</build>
 
+	<!-- <plugins> <plugin> <groupId>org.jacoco</groupId> <artifactId>jacoco-maven-plugin</artifactId> 
+		<version>0.7.6.201602180812</version> <configuration> <output>file</output> 
+		<append>true</append> </configuration> <executions> <execution> <id>jacoco-initialize</id> 
+		<goals> <goal>prepare-agent</goal> </goals> </execution> <execution> <id>jacoco-site</id> 
+		<phase>verify</phase> <goals> <goal>report</goal> </goals> </execution> </executions> 
+		</plugin> </plugins> -->
+	</build>
 </project>

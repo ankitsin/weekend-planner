@@ -1,6 +1,5 @@
 package com.practo.wp.model;
 
-import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
 
 public class User {
@@ -44,7 +43,7 @@ public class User {
   }
 
   /**
-   * .
+   * Convert entity {@link UserEntity} to model {@link User}.
    * 
    * @param e()
    */
@@ -57,19 +56,24 @@ public class User {
     }
   }
 
+  /**
+   * Convert model to entity {@link UserEntity}.
+   * 
+   * @return entity {@link UserEntity}
+   */
   public UserEntity convert() {
-    UserEntity et = new UserEntity();
+    UserEntity entity = new UserEntity();
     // System.out.println(PostedUserId());
     // System.out.println(getTripName());
     // System.out.println(getAverageCost());
     // System.out.println(getGoingDate());
     // System.out.println(getGoingPeople());
     // System.out.println(getNumOfDay());
-    et.setUserId(getUserId());
-    et.setName(getName());
-    et.setEmailId(getEmailId());
-    et.setMobile(getMobile());
+    entity.setUserId(getUserId());
+    entity.setName(getName());
+    entity.setEmailId(getEmailId());
+    entity.setMobile(getMobile());
 
-    return et;
+    return entity;
   }
 }

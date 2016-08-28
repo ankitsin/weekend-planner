@@ -1,6 +1,6 @@
 package com.practo.wp.data.dao;
 
-import javax.transaction.Transactional;
+import com.practo.wp.data.entity.SignedupEntity;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.practo.wp.data.entity.SignedupEntity;
-
+import javax.transaction.Transactional;
 
 @Repository
 public class SignedupDaoImpl implements SignedupDao {
@@ -28,6 +27,7 @@ public class SignedupDaoImpl implements SignedupDao {
     template.save(obj);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public Iterable<SignedupEntity> search(int tripId, int userId) {
     DetachedCriteria criteria = DetachedCriteria.forClass(SignedupEntity.class);
