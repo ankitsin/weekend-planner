@@ -10,7 +10,7 @@ Travis Build Status:
 ### Dependency Required
 1. Java Version: 1.8.0
 2. Maven
-3. MySql Daytabase
+3. MySql Database
 4. HSQL In Memory Database
 5. New Relic
 6. Travis
