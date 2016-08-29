@@ -175,42 +175,47 @@ public class TripListingController {
   public String post(Model model, String tripName, String destinationName, String averageCost,
       String goingDate, String spaceLeft, String goingPeople, String numOfDay,
       HttpSession session) {
-    System.out.println(goingDate);
-    System.out.println(tripName);
-    System.out.println(destinationName);
-    System.out.println(averageCost);
-    Trip object = new Trip();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    Date temp = new Date();
-    try {
-      temp = dateFormat.parse(goingDate);
-      object.setGoingDate(temp);
-    } catch (ParseException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    }
-    object.setAverageCost(Integer.parseInt(averageCost));
-    object.setGoingPeople(Integer.parseInt(goingPeople));
-    object.setNumOfDay(Integer.parseInt(numOfDay));
-    object.setSpaceLeft(Integer.parseInt(spaceLeft));
-    object.setTripName(tripName);
+    if (session.getAttribute("email") != null) {
 
-    String emailId = (String) session.getAttribute("email");
-    System.out.println(emailId);
-    User user1 = userService.getByEmailId(emailId);
-    System.out.println(user1.getUserId());
-    object.setPostedUserId(user1.getUserId());
-    Destination dest = destService.getId(destinationName);
-    System.out.println(dest.getDestinationId());
-    object.setPostedDestinationId(dest.getDestinationId());
-    Trip dto = new Trip();
-    try {
-      dto = tripService.create(object);
-    } catch (ExceptionMessageThrow exc) {
-      exc.printStackTrace();
+      System.out.println(goingDate);
+      System.out.println(tripName);
+      System.out.println(destinationName);
+      System.out.println(averageCost);
+      Trip object = new Trip();
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      Date temp = new Date();
+      try {
+        temp = dateFormat.parse(goingDate);
+        object.setGoingDate(temp);
+      } catch (ParseException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+      }
+      object.setAverageCost(Integer.parseInt(averageCost));
+      object.setGoingPeople(Integer.parseInt(goingPeople));
+      object.setNumOfDay(Integer.parseInt(numOfDay));
+      object.setSpaceLeft(Integer.parseInt(spaceLeft));
+      object.setTripName(tripName);
+
+      String emailId = (String) session.getAttribute("email");
+      System.out.println(emailId);
+      User user1 = userService.getByEmailId(emailId);
+      System.out.println(user1.getUserId());
+      object.setPostedUserId(user1.getUserId());
+      Destination dest = destService.getId(destinationName);
+      System.out.println(dest.getDestinationId());
+      object.setPostedDestinationId(dest.getDestinationId());
+      Trip dto = new Trip();
+      try {
+        dto = tripService.create(object);
+      } catch (ExceptionMessageThrow exc) {
+        exc.printStackTrace();
+      }
+      model.addAttribute("postedDetail", dto);
+      return "posted";
+    } else {
+      return "redirect:/";
     }
-    model.addAttribute("postedDetail", dto);
-    return "posted";
   }
 
   /**

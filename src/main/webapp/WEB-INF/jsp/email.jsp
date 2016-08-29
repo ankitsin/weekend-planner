@@ -1,4 +1,6 @@
 <%@include file="header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <body>
 	<div id="page-wrap">
 		<div class="preloader"></div>
@@ -50,7 +52,9 @@
 									<div class="item-list">
 										<ul>
 											<li>Trip Name: ${signedUp.getTripName()}</li>
-											<li>Trip Date: ${signedUp.getGoingDate()}</li>
+
+											<li>Trip Date: <fmt:formatDate
+													value="${signedUp.getGoingDate()}" pattern="dd-MMM-yyyy" /></li>
 											<li>Average Cost: Rs ${signedUp.getAverageCost()}</li>
 											<li>Number Of Days: ${signedUp.getNumOfDay()}</li>
 											<li>Destination Type: ${signedUp.getDestinationType()}</li>
