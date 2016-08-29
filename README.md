@@ -22,7 +22,7 @@ My Schema Design [Link]
 ### Apiary Documentation Link
 Here the Apiary documnetation of the API. [Link](http://docs.weekendplanner.apiary.io/)
 
-### Tools Used/Reqiured for the Project
+### Tech and Tools Used/Reqiured for the Project
 1. Java Version: 1.8.0
 2. Maven
 3. MySql Database
@@ -53,7 +53,7 @@ Link to New Relic[Link]
 1. UserName: ankitsin37@gmail.com
 2. Password: qwerty123
 
-###Travis Build Status:
+###Travis CI Build Status:
 [![Travis-ci Build Status](https://travis-ci.org/ankitsin/weekend-planner.svg?branch=master)](https://travis-ci.org/ankitsin/weekend-planner)
 
 ### Jacoco Code coverage:
