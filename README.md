@@ -30,7 +30,7 @@ Here the Apiary documnetation of the API. [Link](http://docs.weekendplanner.apia
 5. New Relic
 6. Travis
 7. Google Auth for Login
-8. Sentry
+8. JavaDoc
 9. Amazon EC2
 10. Google Checkstyle
 11. Google Code fromatter
@@ -51,12 +51,6 @@ Link to Java Doc[Link](http://doc.singhankit.me) of the Code.
 Link to New Relic[Link]
 (https://rpm.newrelic.com/accounts/1403528)
 1. UserName: ankitsin37@gmail.com
-2. Password: qwerty123
-
-### Sentry
-Link to Sentry[Link]
-(https://app.getsentry.com/practo-sp/weekend_planner/dashboard/)
-1. Username: ankitsin37@gmail.com
 2. Password: qwerty123
 
 ###Travis Build Status:
