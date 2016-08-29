@@ -1,11 +1,11 @@
 FORMAT: 1A
-http://ec2-52-27-31-124.us-west-2.compute.amazonaws.com/wp/
+http://www.singhankit.me/wp/
 # Weekend-Planner
 
 Weekend Planner is an API made for Practeon for making weekend trip with low budget by adding more people in the trip.
 
 
-## Profile of user [/user/profile/]
+## Profile of user [/user/{id}]
 ### Show the details[GET]
 
 + Response 200 (application/json)
@@ -27,22 +27,36 @@ This is page where alll the trips happeing in the coming dates will be diplayed.
 
         [
             {
-                "trip_id": "10",
-                "trip-name": "Trip to...",
-                "when": "25/09/2016",
-                "where": "Nandi Hills",
-                "type": "Hill station",
-                "number_days": "3",
-                "space_left": "3"
-            }
+                "tripId": 6,
+                "averageCost": 3000,
+                "goingDate": 1473206400000,
+                "goingPeople": 3,
+                "numOfDay": 3,
+                "spaceLeft": 2,
+                "tripName": "Trip to Ramanagara",
+                "isDeleted": 0,
+                "userName": "Ankit Singh",
+                "destinationLocation": "Ramanagara",
+                "destinationType": "Trekking",
+                "userEmailId": "ankit.singh.2016@iitkalumni.org",
+                "userId": 3
+}
             {
-                "trip_id": "15",
-                "trip-name": "Trip to...",
-                "when": "26/09/2016",
-                "where": "Thanjavur",
-                "type": "Temple",
-                "number_days": "1",
-                "space_left": "5"
+                "tripId": 8,
+                "averageCost": 4000,
+                "createdAt": null,
+                "goingDate": 1473206400000,
+                "goingPeople": 3,
+                "modifiedAt": null,
+                "numOfDay": 1,
+                "spaceLeft": 2,
+                "tripName": "Trip to Bhoga Nandeeshwar",
+                "isDeleted": 0,
+                "userName": "Ankit Singh",
+                "destinationLocation": "Bhoga Nandeeshwara Temple - Nandi",
+                "destinationType": "Historical-Heritage",
+                "userEmailId": "ankitsin37@gmail.com",
+                "userId": 1
             }
         ]
 
@@ -52,22 +66,38 @@ This is page where alll the trips happeing in the coming dates will be diplayed.
 
         [
             {
-                "trip_id": "10",
-                "trip-name": "Trip to...",
-                "when": "25/09/2016",
-                "where": "Nandi Hills",
-                "type": "Hill station",
-                "number_days": "3",
-                "space_left": "3"
+                "tripId": 6,
+                "averageCost": 3000,
+                "createdAt": null,
+                "goingDate": 1473206400000,
+                "goingPeople": 3,
+                "modifiedAt": null,
+                "numOfDay": 3,
+                "spaceLeft": 2,
+                "tripName": "Trip to Ramanagara",
+                "isDeleted": 0,
+                "userName": "Ankit Singh",
+                "destinationLocation": "Ramanagara",
+                "destinationType": "Trekking",
+                "userEmailId": "ankit.singh.2016@iitkalumni.org",
+                "userId": 3
             }
             {
-                "trip_id": "15",
-                "trip-name": "Trip to...",
-                "when": "26/09/2016",
-                "where": "Thanjavur",
-                "type": "Temple",
-                "number_days": "1",
-                "space_left": "5"
+                "tripId": 4,
+                "averageCost": 1111,
+                "createdAt": null,
+                "goingDate": 1473811200000,
+                "goingPeople": 2,
+                "modifiedAt": null,
+                "numOfDay": 3,
+                "spaceLeft": 2,
+                "tripName": "Trip to Ramanagara",
+                "isDeleted": 0,
+                "userName": "Ankit Singh",
+                "destinationLocation": "Ramanagara",
+                "destinationType": "Trekking",
+                "userEmailId": "ankitsin37@gmail.com",
+                "userId": 1
             }
         ]
 ## Signup for Trip [/trip/all/{signup}]
@@ -100,12 +130,12 @@ Post a new trip.
         {
             "trip-name": "Trip to ...",
             "user": "xyz@gmail.com",
-            "when": "24/08/2016",
-            "where": "Nandi Hills",
+            "goingDate": "24/08/2016",
+            "destinationName": "Nandi Hills",
             "people_going":"4",
-            "extra_space": "3",
-            "average_cost": "900",
-            "number_days": "2"
+            "spaceLeft": "3",
+            "averageCost": "900",
+            "numberOfDays": "2"
         }
 + Response 201 (application/json)
 
@@ -128,12 +158,12 @@ Making change to already posted trips.
         {
             "trip_id": "21",
             "user": "xyz@gmail.com",
-            "when": "28/08/2016",
-            "where": "Nandi Hills",
+            "goingDate": "28/08/2016",
+            "destinationName": "Nandi Hills",
             "people_going":"4",
-            "extra_space": "3",
-            "average_cost": "900",
-            "number_days": "2"
+            "spaceLeft": "3",
+            "averageCost": "900",
+            "numberOfDays": "2"
         }
 + Response 201 (application/json)
 
@@ -167,3 +197,38 @@ Deleting laready posted trips.
             {
                 "message": "Trip deleted Successfully"
             }
+
+
+## Get Destination Destails[/destination/all]
+### Get All Destination[GET]
++ Response 200 (application/json)
+
+        [
+            {
+                "destinationId": "1",
+                "distance": "43",
+                "location": "Muthyala Maduvu",
+                "type": "Waterfall"
+            }
+            {
+                "destinationId": "2",
+                "distance": "23",
+                "location": "Bannerghatta National Park",
+                "type": "Wildlife"
+            }
+        ]
+        
+
+## Get Destination Destails by Id[/destination/{3}]
+### Get Destination by Id[GET]
++ Response 200 (application/json)
+
+        [
+            {
+                "destinationId": "3",
+                "distance": "54",
+                "location": "Ramanagara",
+                "type": "Trekking"
+            }
+            
+        ]
