@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Controller for getting user information.
+ * 
+ * @author ankit
+ *
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {

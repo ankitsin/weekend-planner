@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+/**
+ * Controller for getting details of the destinations available in the databse.
+ * 
+ * @author ankit
+ *
+ */
 @RestController
 @RequestMapping("/destination")
 public class DestinationController {

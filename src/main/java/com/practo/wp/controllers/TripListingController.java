@@ -26,7 +26,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 /**
- * Controller for listing, posting of the trips.
+ * Controller for listing, posting of the trips, signing up of trees.
  * 
  * @author ankit
  *

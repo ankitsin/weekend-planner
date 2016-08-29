@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * User Service implementation for for getting user detail using emailId and Id, creation of user,
+ * update user details.
+ * 
+ * @author ankit
+ *
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

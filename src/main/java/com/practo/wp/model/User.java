@@ -2,6 +2,12 @@ package com.practo.wp.model;
 
 import com.practo.wp.data.entity.UserEntity;
 
+/**
+ * Model for User Entity.
+ * 
+ * @author ankit
+ *
+ */
 public class User {
   private int userId;
   private String emailId;

@@ -4,6 +4,12 @@ import com.practo.wp.data.entity.SignedupEntity;
 import com.practo.wp.data.entity.TripEntity;
 import com.practo.wp.data.entity.UserEntity;
 
+/**
+ * Signup model for signup nentity model.
+ * 
+ * @author ankit
+ *
+ */
 public class Signedup {
   private int id;
   private TripEntity trip;

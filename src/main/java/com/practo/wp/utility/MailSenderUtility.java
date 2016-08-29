@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Mail sending utility function. Take Email of 'to' user, subject of mail and body of mail.
+ * 
+ * @author ankit
+ *
+ */
 @Component
 public class MailSenderUtility {
   @Autowired

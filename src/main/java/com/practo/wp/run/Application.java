@@ -12,6 +12,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 
+/**
+ * Main function for calling controllers.
+ * 
+ * @author ankit
+ *
+ */
 @ImportResource("classpath:hibernate.xml")
 @ComponentScan(basePackages = {"com.practo.wp"})
 @EntityScan("com.practo.wp.data.entity")

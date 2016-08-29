@@ -8,6 +8,12 @@ import java.util.Date;
 
 
 
+/**
+ * Trip model for Trip Entity.
+ * 
+ * @author ankit
+ *
+ */
 public class Trip {
 
   private int tripId;

@@ -26,6 +26,13 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+/**
+ * Trip Service implementation for for getting all trip detail, registering for trip, posting trip,
+ * editing trip, deleting trip.
+ * 
+ * @author ankit
+ *
+ */
 @Service
 @Transactional
 public class TripServiceImpl implements TripService {

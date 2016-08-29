@@ -2,6 +2,12 @@ package com.practo.wp.model;
 
 import com.practo.wp.data.entity.DestinationEntity;
 
+/**
+ * Model of destination Entity.
+ * 
+ * @author ankit
+ *
+ */
 public class Destination {
   private int destinationId;
 

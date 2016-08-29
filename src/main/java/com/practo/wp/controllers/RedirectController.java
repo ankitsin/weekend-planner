@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Redirect on Apiary Documentation if accessing a not existing page.
+ * 
+ * @author ankit
+ *
+ */
 @RestController
 @RequestMapping("/redirect")
 public class RedirectController {
