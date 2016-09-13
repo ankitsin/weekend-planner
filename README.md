@@ -44,7 +44,7 @@ Here the Apiary documnetation of the API. [Link](http://docs.weekendplanner.apia
 ## Tool's Result
 
 ### Java Doc
-Link to Java Doc[Link](http://doc.singhankit.me) of the Code.
+Link to Java Doc[Link](http://docs.singhankit.me) of the Code.
 
 
 ### New Relic
