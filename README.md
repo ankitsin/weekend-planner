@@ -50,8 +50,7 @@ Link to Java Doc[Link](http://docs.singhankit.me) of the Code.
 ### New Relic
 Link to New Relic[Link]
 (https://rpm.newrelic.com/accounts/1403528)
-1. UserName: ankitsin37@gmail.com
-2. Password: qwerty123
+For Credentials, mail @ankitsin37@gmail.com
 
 ###Travis CI Build Status:
 [![Travis-ci Build Status](https://travis-ci.org/ankitsin/weekend-planner.svg?branch=master)](https://travis-ci.org/ankitsin/weekend-planner)
